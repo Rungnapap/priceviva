@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+/* Dark mode follows a `.dark` class on <html>; ThemeScript sets it from the
+   saved choice or, by default, the operating-system preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   PriceViva design tokens (variable names keep the historical "pa-" prefix)
+   White / warm-gray surfaces, navy text, confident blue, warm gold used sparingly,
+   red reserved for Local Deal Radar. "-ink" variants are text-safe (WCAG 2.2 AA).
+--------------------------------------------------------------------------- */
+:root {
+  --pa-bg: #f7f6f3;
+  --pa-surface: #ffffff;
+  --pa-surface-2: #f1efeb;
+  --pa-ink: #0e1a33;
+  --pa-muted: #5b6577;
+  --pa-line: #e5e2dc;
+  --pa-primary: #1a5ae6;
+  --pa-primary-hover: #1449c2;
+  --pa-primary-soft: #eaf1ff;
+  --pa-primary-ink: #1449c2;
+  --pa-navy: #0b1730;
+  --pa-gold: #d4a23c;
+  --pa-gold-ink: #8a5f0f;
+  --pa-gold-soft: #fbf3e2;
+  --pa-radar: #e0322f;
+  --pa-radar-hover: #bd2522;
+  --pa-radar-ink: #b42318;
+  --pa-radar-soft: #fdeeed;
+  --pa-success: #079455;
+  --pa-success-ink: #067647;
+  --pa-success-soft: #ecfdf3;
+  --pa-warning: #dc6803;
+  --pa-warning-ink: #b54708;
+  --pa-warning-soft: #fffaeb;
+  --pa-error: #d92d20;
+  --pa-error-ink: #b42318;
+  --pa-error-soft: #fef3f2;
+  --pa-demo: #6927da;
+  --pa-demo-soft: #f4f3ff;
+  --pa-shadow: 0 1px 2px rgb(14 26 51 / 0.04), 0 2px 6px rgb(14 26 51 / 0.05);
+  --pa-shadow-lg: 0 16px 32px -12px rgb(14 26 51 / 0.18), 0 4px 10px -4px rgb(14 26 51 / 0.06);
+  color-scheme: light;
+}
+
+.dark {
+  --pa-bg: #0a1222;
+  --pa-surface: #111b30;
+  --pa-surface-2: #18233b;
+  --pa-ink: #f2f4f7;
+  --pa-muted: #a8b1c2;
+  --pa-line: #26324c;
+  --pa-primary: #2f6bed;
+  --pa-primary-hover: #2558d0;
+  --pa-primary-soft: #15264b;
+  --pa-primary-ink: #9ab8ff;
+  --pa-navy: #050c1a;
+  --pa-gold: #e2b65a;
+  --pa-gold-ink: #f0cf86;
+  --pa-gold-soft: #2c230f;
+  --pa-radar: #d92d2a;
+  --pa-radar-hover: #b82522;
+  --pa-radar-ink: #fda29b;
+  --pa-radar-soft: #35140f;
+  --pa-success: #3ccb7f;
+  --pa-success-ink: #6ce9a6;
+  --pa-success-soft: #0b2a1c;
+  --pa-warning: #f79009;
+  --pa-warning-ink: #fec84b;
+  --pa-warning-soft: #2e1f05;
+  --pa-error: #f97066;
+  --pa-error-ink: #fda29b;
+  --pa-error-soft: #33140f;
+  --pa-demo: #bdb4fe;
+  --pa-demo-soft: #1f1a3d;
+  --pa-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  --pa-shadow-lg: 0 12px 24px -6px rgb(0 0 0 / 0.5);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-display-face), var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-bg: var(--pa-bg);
+  --color-surface: var(--pa-surface);
+  --color-surface-2: var(--pa-surface-2);
+  --color-ink: var(--pa-ink);
+  --color-muted: var(--pa-muted);
+  --color-line: var(--pa-line);
+  --color-primary: var(--pa-primary);
+  --color-primary-hover: var(--pa-primary-hover);
+  --color-primary-soft: var(--pa-primary-soft);
+  --color-primary-ink: var(--pa-primary-ink);
+  --color-success: var(--pa-success);
+  --color-success-ink: var(--pa-success-ink);
+  --color-success-soft: var(--pa-success-soft);
+  --color-warning: var(--pa-warning);
+  --color-warning-ink: var(--pa-warning-ink);
+  --color-warning-soft: var(--pa-warning-soft);
+  --color-error: var(--pa-error);
+  --color-error-ink: var(--pa-error-ink);
+  --color-error-soft: var(--pa-error-soft);
+  --color-navy: var(--pa-navy);
+  --color-gold: var(--pa-gold);
+  --color-gold-ink: var(--pa-gold-ink);
+  --color-gold-soft: var(--pa-gold-soft);
+  --color-radar: var(--pa-radar);
+  --color-radar-hover: var(--pa-radar-hover);
+  --color-radar-ink: var(--pa-radar-ink);
+  --color-radar-soft: var(--pa-radar-soft);
+  --color-demo: var(--pa-demo);
+  --color-demo-soft: var(--pa-demo-soft);
+
+  --shadow-card: var(--pa-shadow);
+  --shadow-lift: var(--pa-shadow-lg);
+
+  --radius-card: 1rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--pa-bg);
+    color: var(--pa-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--pa-primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--pa-primary-soft);
+  }
+}
+
+@layer components {
+  .pa-container {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 90rem;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .pa-container {
+      padding-inline: 1.5rem;
+    }
+  }
+  .pa-shelf {
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: thin;
+  }
+  .pa-shelf > * {
+    scroll-snap-align: start;
+  }
+  .pa-arch {
+    border-radius: 999px 999px 1.25rem 1.25rem;
+  }
+  /* Display headings use the brand display face. */
+  .pv-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  /* Thin horizontal scroller without a visible scrollbar (category bar on small screens). */
+  .pv-scroll-x {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .pv-scroll-x::-webkit-scrollbar {
+    display: none;
+  }
+  /* Photo tiles: gentle zoom on hover, respects reduced motion (see below). */
+  .pv-photo-zoom img {
+    transition: transform 420ms ease;
+  }
+  .pv-photo-zoom:hover img,
+  .pv-photo-zoom:focus-visible img {
+    transform: scale(1.05);
+  }
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* PriceViva interaction layer — consistent feedback across every page. */
+html { scroll-behavior: smooth; }
+.pa-scroll-track { position: fixed; inset: 0 0 auto; z-index: 100; height: 3px; pointer-events: none; }
+.pa-scroll-fill { height: 100%; background: var(--pa-primary); transition: width 90ms linear; }
+.pa-back-to-top { position: fixed; z-index: 65; right: 1.25rem; bottom: 1.25rem; display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--pa-line); border-radius: 50%; background: var(--pa-surface); color: var(--pa-ink); box-shadow: var(--pa-shadow-lg); cursor: pointer; opacity: 0; pointer-events: none; transform: translateY(14px); transition: opacity 180ms ease, transform 180ms ease, background 180ms ease; }
+.pa-back-to-top-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.pa-back-to-top:hover { background: var(--pa-primary-soft); transform: translateY(-3px); }
+@media (hover: hover) and (pointer: fine) {
+  a, button, select, summary, [role="button"] { -webkit-tap-highlight-color: transparent; }
+  article.group { transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease; }
+  article.group:hover { transform: translateY(-4px); border-color: var(--pa-primary); }
+  article.group img, article.group svg { transition: transform 320ms ease; }
+  article.group:hover img { transform: scale(1.035); }
+  button:not(:disabled):active, [role="button"]:active { transform: scale(0.98); }
+}
+input, select, textarea { transition: border-color 160ms ease, box-shadow 160ms ease; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { box-shadow: 0 0 0 3px var(--pa-primary-soft); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+@layer components {
+  /* Soft fade on the right edge of a horizontally scrollable row, hinting there is more. */
+  .pv-fade-r {
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+}
+
+@layer components {
+  /* Readable wash over photographic backgrounds: page surface colour on the left fading to clear. Follows light/dark theme. */
+  .pv-wash-left {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--pa-surface) 97%, transparent) 0%,
+      color-mix(in srgb, var(--pa-surface) 92%, transparent) 42%,
+      color-mix(in srgb, var(--pa-surface) 38%, transparent) 60%,
+      transparent 72%
+    );
+  }
+  /* Homepage hero: solid behind the text column, clear over the shoppers in the middle of the photo. */
+  .pv-wash-hero {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--pa-surface) 96%, transparent) 0%,
+      color-mix(in srgb, var(--pa-surface) 90%, transparent) 30%,
+      color-mix(in srgb, var(--pa-surface) 55%, transparent) 38%,
+      transparent 47%
+    );
+  }
+  .pv-wash-left-soft {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--pa-surface) 97%, transparent) 0%,
+      color-mix(in srgb, var(--pa-surface) 93%, transparent) 45%,
+      color-mix(in srgb, var(--pa-surface) 40%, transparent) 68%,
+      color-mix(in srgb, var(--pa-surface) 5%, transparent) 100%
+    );
+  }
+}

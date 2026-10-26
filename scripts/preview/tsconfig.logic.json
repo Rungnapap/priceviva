@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "es2022",
+      "dom"
+    ],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "types": [],
+    "paths": {
+      "@/*": [
+        "../../src/*"
+      ]
+    }
+  },
+  "files": [
+    "../../src/lib/types.ts",
+    "../../src/lib/tax.ts",
+    "../../src/lib/money.ts",
+    "../../src/lib/pricing.ts",
+    "../../src/lib/search.ts",
+    "../../src/lib/location.ts",
+    "../../src/lib/catalog-queries.ts",
+    "../../src/data/catalog.ts",
+    "../../src/data/places.ts",
+    "../../src/data/fx.ts",
+    "../../src/data/departments.ts",
+    "../../tests/pricing.test.ts",
+    "../../tests/search-location.test.ts",
+    "./node-test.d.ts",
+    "../../src/lib/sample/dummyjson.ts",
+    "../../src/lib/sample/sample-offers.ts",
+    "../../src/lib/importers/normalize.ts",
+    "../../src/lib/importers/csv.ts"
+  ]
+}

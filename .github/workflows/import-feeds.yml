@@ -1,0 +1,24 @@
+# Optional: run the feed import from GitHub Actions (useful for large feeds that exceed
+# serverless time limits). Add the secrets below in GitHub → Settings → Secrets → Actions.
+name: Import product feeds
+on:
+  schedule:
+    - cron: "37 3 * * *" # daily, 03:37 UTC
+  workflow_dispatch: {}
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run import:feeds:ci
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          AWIN_DATAFEED_API_KEY: ${{ secrets.AWIN_DATAFEED_API_KEY }}
+          IMPORT_MAX_ROWS_PER_FEED: ${{ vars.IMPORT_MAX_ROWS_PER_FEED || '50000' }}

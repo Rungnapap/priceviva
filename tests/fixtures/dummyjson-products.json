@@ -1,0 +1,906 @@
+{
+ "products": [
+  {
+   "id": 1,
+   "title": "Fixture Mascara 1",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (beauty).",
+   "category": "beauty",
+   "price": 9.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "beauty",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0001",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-1/1.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-1/2.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-1/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-1/thumbnail.webp"
+  },
+  {
+   "id": 2,
+   "title": "Fixture Mascara 2",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (beauty).",
+   "category": "beauty",
+   "price": 19.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "beauty",
+    "fixture"
+   ],
+   "sku": "FIX0002",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-2/1.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-2/2.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-2/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-2/thumbnail.webp"
+  },
+  {
+   "id": 3,
+   "title": "Fixture Mascara 3",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (beauty).",
+   "category": "beauty",
+   "price": 14.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "beauty",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0003",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-3/1.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-3/2.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-3/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-3/thumbnail.webp"
+  },
+  {
+   "id": 4,
+   "title": "Fixture Mascara 4",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (beauty).",
+   "category": "beauty",
+   "price": 12.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "beauty",
+    "fixture"
+   ],
+   "sku": "FIX0004",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-4/1.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-4/2.webp",
+    "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-4/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/fixture-mascara-4/thumbnail.webp"
+  },
+  {
+   "id": 5,
+   "title": "Fixture Mascara 5",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (beauty).",
+   "category": "beauty",
+   "price": 8.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "beauty",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0005",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "http://insecure.example.invalid/x.jpg"
+   ],
+   "thumbnail": "https://evil.example.invalid/x.jpg"
+  },
+  {
+   "id": 6,
+   "title": "Fixture Eau de Parfum 6",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (fragrances).",
+   "category": "fragrances",
+   "price": 49.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "fragrances",
+    "fixture"
+   ],
+   "sku": "FIX0006",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-6/1.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-6/2.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-6/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-6/thumbnail.webp"
+  },
+  {
+   "id": 7,
+   "title": "Fixture Eau de Parfum 7",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (fragrances).",
+   "category": "fragrances",
+   "price": 129.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "fragrances",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0007",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-7/1.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-7/2.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-7/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-7/thumbnail.webp"
+  },
+  {
+   "id": 8,
+   "title": "Fixture Eau de Parfum 8",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (fragrances).",
+   "category": "fragrances",
+   "price": 89.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "fragrances",
+    "fixture"
+   ],
+   "sku": "FIX0008",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-8/1.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-8/2.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-8/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-8/thumbnail.webp"
+  },
+  {
+   "id": 9,
+   "title": "Fixture Eau de Parfum 9",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (fragrances).",
+   "category": "fragrances",
+   "price": 69.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "fragrances",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0009",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-9/1.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-9/2.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-9/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-9/thumbnail.webp"
+  },
+  {
+   "id": 10,
+   "title": "Fixture Eau de Parfum 10",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (fragrances).",
+   "category": "fragrances",
+   "price": 79.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "fragrances",
+    "fixture"
+   ],
+   "sku": "FIX0010",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-10/1.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-10/2.webp",
+    "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-10/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/fragrances/fixture-eau-de-parfum-10/thumbnail.webp"
+  },
+  {
+   "id": 11,
+   "title": "Fixture Armchair 11",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (furniture).",
+   "category": "furniture",
+   "price": 1899.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "furniture",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0011",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-11/1.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-11/2.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-11/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-11/thumbnail.webp"
+  },
+  {
+   "id": 12,
+   "title": "Fixture Armchair 12",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (furniture).",
+   "category": "furniture",
+   "price": 2499.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "furniture",
+    "fixture"
+   ],
+   "sku": "FIX0012",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-12/1.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-12/2.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-12/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-12/thumbnail.webp"
+  },
+  {
+   "id": 13,
+   "title": "Fixture Armchair 13",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (furniture).",
+   "category": "furniture",
+   "price": 299.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "furniture",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0013",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-13/1.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-13/2.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-13/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-13/thumbnail.webp"
+  },
+  {
+   "id": 14,
+   "title": "Fixture Armchair 14",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (furniture).",
+   "category": "furniture",
+   "price": 499.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "furniture",
+    "fixture"
+   ],
+   "sku": "FIX0014",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-14/1.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-14/2.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-14/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-14/thumbnail.webp"
+  },
+  {
+   "id": 15,
+   "title": "Fixture Armchair 15",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (furniture).",
+   "category": "furniture",
+   "price": 799.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "furniture",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0015",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-15/1.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-15/2.webp",
+    "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-15/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/fixture-armchair-15/thumbnail.webp"
+  },
+  {
+   "id": 78,
+   "title": "Fixture Laptop 14 78",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (laptops).",
+   "category": "laptops",
+   "price": 1299.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "laptops",
+    "fixture"
+   ],
+   "sku": "FIX0078",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/laptops/fixture-laptop-14-78/1.webp",
+    "https://cdn.dummyjson.com/product-images/laptops/fixture-laptop-14-78/2.webp",
+    "https://cdn.dummyjson.com/product-images/laptops/fixture-laptop-14-78/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/laptops/fixture-laptop-14-78/thumbnail.webp"
+  },
+  {
+   "id": 121,
+   "title": "Fixture Smartphone X 121",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (smartphones).",
+   "category": "smartphones",
+   "price": 549.99,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "smartphones",
+    "fixture"
+   ],
+   "brand": "Fixture Brand",
+   "sku": "FIX0121",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/smartphones/fixture-smartphone-x-121/1.webp",
+    "https://cdn.dummyjson.com/product-images/smartphones/fixture-smartphone-x-121/2.webp",
+    "https://cdn.dummyjson.com/product-images/smartphones/fixture-smartphone-x-121/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/smartphones/fixture-smartphone-x-121/thumbnail.webp"
+  },
+  {
+   "id": 160,
+   "title": "Fixture Tote Bag 160",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (womens-bags).",
+   "category": "womens-bags",
+   "price": 89.0,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "womens-bags",
+    "fixture"
+   ],
+   "sku": "FIX0160",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/womens-bags/fixture-tote-bag-160/1.webp",
+    "https://cdn.dummyjson.com/product-images/womens-bags/fixture-tote-bag-160/2.webp",
+    "https://cdn.dummyjson.com/product-images/womens-bags/fixture-tote-bag-160/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/womens-bags/fixture-tote-bag-160/thumbnail.webp"
+  },
+  {
+   "id": 170,
+   "title": "Fixture Aviator Sunglasses 170",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (sunglasses).",
+   "category": "sunglasses",
+   "price": 59.0,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "sunglasses",
+    "fixture"
+   ],
+   "sku": "FIX0170",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/sunglasses/fixture-aviator-sunglasses-170/1.webp",
+    "https://cdn.dummyjson.com/product-images/sunglasses/fixture-aviator-sunglasses-170/2.webp",
+    "https://cdn.dummyjson.com/product-images/sunglasses/fixture-aviator-sunglasses-170/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/sunglasses/fixture-aviator-sunglasses-170/thumbnail.webp"
+  },
+  {
+   "id": 190,
+   "title": "Fixture Mystery Gadget 190",
+   "description": "Synthetic test fixture shaped like a DummyJSON product (unknown-new-category).",
+   "category": "unknown-new-category",
+   "price": 5.0,
+   "discountPercentage": 12.5,
+   "rating": 4.9,
+   "stock": 5,
+   "tags": [
+    "unknown-new-category",
+    "fixture"
+   ],
+   "sku": "FIX0190",
+   "weight": 2,
+   "dimensions": {
+    "width": 10.5,
+    "height": 5.2,
+    "depth": 3.1
+   },
+   "warrantyInformation": "1 year warranty",
+   "shippingInformation": "Ships in 1 week",
+   "availabilityStatus": "In Stock",
+   "reviews": [
+    {
+     "rating": 5,
+     "comment": "Generated review",
+     "reviewerName": "Fixture"
+    }
+   ],
+   "returnPolicy": "30 days return policy",
+   "minimumOrderQuantity": 1,
+   "meta": {
+    "createdAt": "2024-05-23T08:56:21.618Z",
+    "updatedAt": "2024-05-23T08:56:21.618Z",
+    "barcode": "1234567890128"
+   },
+   "images": [
+    "https://cdn.dummyjson.com/product-images/unknown-new-category/fixture-mystery-gadget-190/1.webp",
+    "https://cdn.dummyjson.com/product-images/unknown-new-category/fixture-mystery-gadget-190/2.webp",
+    "https://cdn.dummyjson.com/product-images/unknown-new-category/fixture-mystery-gadget-190/3.webp"
+   ],
+   "thumbnail": "https://cdn.dummyjson.com/product-images/unknown-new-category/fixture-mystery-gadget-190/thumbnail.webp"
+  },
+  {
+   "id": 191,
+   "title": "Fixture Bad Price",
+   "category": "beauty",
+   "price": 0,
+   "images": []
+  },
+  {
+   "title": "Fixture No Id",
+   "category": "beauty",
+   "price": 1
+  }
+ ],
+ "total": 22,
+ "skip": 0,
+ "limit": 0
+}

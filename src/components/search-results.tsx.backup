@@ -1,0 +1,122 @@
+"use client";
+
+import Link from "next/link";
+import { rankingFor } from "@/lib/catalog-queries";
+import { useClientState, useHydrated } from "@/lib/client-store";
+import { paginate, type SortKey } from "@/lib/search";
+import type { CatalogProduct } from "@/lib/types";
+import { useCatalog } from "./catalog-context";
+import { ProductCard } from "./product-card";
+import { useT } from "./i18n-provider";
+
+const PER_PAGE = 12;
+
+/**
+ * Price sorting depends on the visitor's delivery destination and currency (browser prefs),
+ * so ordering by price happens here. Products without a complete delivered total sort last
+ * — an unknown cost is never ranked as cheap.
+ */
+export function SearchResults({ products: all, sort, page, baseQuery, min = null, max = null }: { products: CatalogProduct[]; sort: SortKey; page: number; baseQuery: string; min?: number | null; max?: number | null }) {
+  const hydrated = useHydrated();
+  const { location, currency } = useClientState();
+  const { fx } = useCatalog();
+  const tr = useT();
+  const ranged = min !== null || max !== null;
+  
+const total = (p: CatalogProduct) => {
+  const delivered = rankingFor(
+    p,
+    location.deliveryDestination,
+    currency,
+    fx
+  ).best?.displayTotalMinor;
+
+  if (delivered != null) return delivered;
+
+  // TEST MODE fallback: use the sample list price if delivery cost is unknown.
+  const sampleOffer = p.offers.find(
+    (offer) => offer.source === "sample" && offer.price.minor > 0
+  );
+
+  if (!sampleOffer || sampleOffer.price.currency !== currency) {
+    return null;
+  }
+
+  return sampleOffer.price.minor;
+};
+
+  // Price range: only complete delivered totals can be compared with it; others are counted and hidden (never guessed).
+  let list = all;
+  let noTotal = 0;
+  if (ranged && hydrated) {
+    list = all.filter((p) => {
+      const v = total(p);
+      if (v === null) { noTotal++; return false; }
+      return (min === null || v >= min * 100) && (max === null || v <= max * 100);
+    });
+  }
+
+  let ordered = list;
+  if (sort === "name") ordered = [...list].sort((a, b) => a.name.localeCompare(b.name));
+  if ((sort === "price_asc" || sort === "price_desc") && hydrated) {
+    const price = new Map(list.map((p) => [p.id, total(p)]));
+    ordered = [...list].sort((a, b) => {
+      const pa = price.get(a.id) ?? null;
+      const pb = price.get(b.id) ?? null;
+      if (pa === null && pb === null) return 0;
+      if (pa === null) return 1;
+      if (pb === null) return -1;
+      return sort === "price_asc" ? pa - pb : pb - pa;
+    });
+  }
+
+  const pg = paginate(ordered, page, PER_PAGE);
+  const href = (n: number) => `/search?${baseQuery}${baseQuery ? "&" : ""}page=${n}`;
+
+  if (ranged && hydrated && list.length === 0) {
+    return (
+      <div className="rounded-[var(--radius-card)] border border-dashed border-line px-4 py-10 text-center">
+        <p className="font-semibold">{tr("search.noneInRange")}</p>
+        <p className="mt-1 text-sm text-muted">{tr("search.noneInRangeText")}{noTotal ? ` ${tr("search.priceHidden", { n: noTotal })}` : ""}</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {ranged && hydrated && (
+        <p className="mb-4 text-sm text-muted" role="status">
+          {tr("search.priceFiltered", { shown: list.length, total: all.length })}
+          {noTotal ? ` ${tr("search.priceHidden", { n: noTotal })}` : ""}
+        </p>
+      )}
+      <h2 className="sr-only">{tr("search.resultsHeading")}</h2>
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {pg.items.map((p) => (
+          <li key={p.id} className="flex">
+            <ProductCard product={p} className="w-full" />
+          </li>
+        ))}
+      </ul>
+      {pg.pages > 1 && (
+        <nav aria-label={tr("search.pagination")} className="mt-8 flex items-center justify-center gap-2">
+          {Array.from({ length: pg.pages }, (_, i) => i + 1).map((n) => (
+            <Link
+              key={n}
+              href={href(n)}
+              aria-current={n === pg.page ? "page" : undefined}
+              className={`flex h-10 min-w-10 items-center justify-center rounded-full border px-3 text-sm ${n === pg.page ? "border-primary bg-primary text-white" : "border-line bg-surface hover:bg-surface-2"}`}
+            >
+              {n}
+            </Link>
+          ))}
+        </nav>
+      )}
+      {(sort === "price_asc" || sort === "price_desc") && (
+        <p className="mt-6 text-center text-xs text-muted">
+          {tr("search.sortedNote")}
+        </p>
+      )}
+    </>
+  );
+}

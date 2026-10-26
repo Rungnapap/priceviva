@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "lib": ["es2022", "dom", "dom.iterable", "esnext"], "strict": true, "noUncheckedIndexedAccess": true,
+    "noEmit": true, "module": "esnext", "moduleResolution": "bundler", "isolatedModules": true, "skipLibCheck": true,
+    "jsx": "preserve", "typeRoots": ["/opt/npm-tools/node_modules/@types"], "types": ["node"], "paths": { "@/*": ["../../src/*"] }
+  },
+  "include": ["../../src/**/*.ts", "../../src/**/*.tsx", "../../tests/**/*.ts", "./loose-react.d.ts"]
+}

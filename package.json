@@ -1,0 +1,46 @@
+{
+  "name": "priceatlas",
+  "version": "0.7.0",
+  "private": true,
+  "description": "PriceViva — Discover More. Compare Better. Global shopping mall and price comparison (demo, sample test mode and Awin feeds)",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "test:db": "tsx --test tests/importer.db.test.ts",
+    "env:check": "node --env-file=.env.local --import tsx scripts/env-check.ts",
+    "db:ping": "node --env-file=.env.local --import tsx scripts/db-ping.ts",
+    "db:bundle": "tsx scripts/db/build-apply-sql.ts",
+    "import:feeds": "node --env-file=.env.local --import tsx scripts/import-feeds.ts",
+    "import:feeds:ci": "node --import tsx scripts/import-feeds.ts",
+    "admin:hash": "node scripts/hash-admin-password.mjs"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.540.0",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
+    "@opennextjs/cloudflare": "^1.20.13",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.30.0",
+    "eslint-config-next": "^16.0.0",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}
