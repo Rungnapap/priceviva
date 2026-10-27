@@ -67,7 +67,7 @@ export function mapAwinRow(values: Record<string, string>, rowNumber: number, ct
   if (!price || price.minor <= 0) return fail("invalid_price", `Price "${priceRaw ?? ""}" is missing or not a valid amount.`);
   // Plausibility guard: obviously broken values (e.g. a product id in the price column) are rejected, not shown.
   if (price.minor > 100_000_000 * 100) return fail("implausible_price", `Price "${priceRaw}" is implausibly high; row not imported.`);
-  const currency = (pick(values, "currency") ?? price.currency ?? "").toUpperCase();
+const currency = (pick(values, "currency") ?? price.currency ?? ctx.currency ?? "").toUpperCase();
   if (!currency) return fail("missing_currency", "Row has no currency.");
   if (currency !== ctx.currency) return fail("currency_mismatch", `Currency ${currency} does not match the feed currency ${ctx.currency}.`);
 
@@ -193,6 +193,5 @@ export function checkAwinHeader(header: string[]): { ok: boolean; missing: strin
   const need = scheme === "enhanced" ? ["id", "title", "price", "aw_deep_link"] : ["product_name", "search_price", "aw_deep_link"];
   const missing = need.filter((c) => !h.has(c));
   if (scheme === "legacy" && !h.has("merchant_product_id") && !h.has("aw_product_id")) missing.push("merchant_product_id|aw_product_id");
-  if (scheme === "legacy" && !h.has("currency")) missing.push("currency");
   return { ok: scheme !== "unknown" && missing.length === 0, missing, scheme };
 }
