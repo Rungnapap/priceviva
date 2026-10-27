@@ -22,7 +22,7 @@ const RULES: Rule[] = [
 
   // Underwear and leggings
   [
-    /underkläder|underklader|underwear|trosa|trosor|boxer shorts|boxershorts|leggings/,
+  /underkläder|underklader|underwear|trosa|trosor|boxer shorts|boxershorts|leggings|shapewear|hipster|korrigerande/,
     "fashion",
     null,
   ],
