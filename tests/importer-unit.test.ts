@@ -129,7 +129,49 @@ test("department guesses", () => {
   assert.deepEqual(guessDepartment(null, "Mystery object", "new"), { department: null, subcategory: null });
   assert.equal(guessDepartment("Phones", "Phone", "refurbished").department, "refurbished");
 });
+test("Swedish and Dutch clothing categories are classified correctly", () => {
+  const cases = [
+    ["Ullstrumpor", "fashion"],
+    ["Merinoullsockor", "fashion"],
+    ["Sneakersockor", "fashion"],
+    ["Husstrumpor", "fashion"],
+    ["Diabetes sokken", "fashion"],
+    ["Trosa", "fashion"],
+    ["Damunderkläder", "fashion"],
+    ["Boxer shorts", "fashion"],
+    ["Damleggings", "fashion"],
+    ["Barntights", "baby-kids"],
+    ["Barnleggings", "baby-kids"],
+    ["Babystrumpor", "baby-kids"],
+    ["Barnstrumpbyxor", "baby-kids"],
+    ["Fotboll", "sports"],
+  ] as const;
 
+  for (const [category, expectedDepartment] of cases) {
+    const result = guessDepartment(category, null, "new");
+    assert.equal(
+      result.department,
+      expectedDepartment,
+      `${category} should be ${expectedDepartment}`
+    );
+  }
+});
+test("Swedish socks are classified as Fashion", () => {
+  assert.deepEqual(
+    guessDepartment("Sneakersockor", "Sneaker socks", "new"),
+    { department: "fashion", subcategory: null }
+  );
+
+  assert.deepEqual(
+    guessDepartment("Herrstrumpor", "Men's socks", "new"),
+    { department: "fashion", subcategory: null }
+  );
+
+  assert.deepEqual(
+    guessDepartment("Bambustrumpor", "Bamboo socks", "new"),
+    { department: "fashion", subcategory: null }
+  );
+});
 test("redaction removes API keys from messages", () => {
   assert.equal(redact("GET https://productdata.awin.com/datafeed/download/apikey/abc123/fid/1"), "GET https://productdata.awin.com/datafeed/download/apikey/[redacted]/fid/1");
 });

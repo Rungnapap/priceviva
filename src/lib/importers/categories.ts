@@ -6,7 +6,35 @@
 type Rule = [RegExp, string, string | null];
 
 const RULES: Rule[] = [
+    // Children's clothing - check before general clothing
+  [
+  /barnstrump|babystrump|barntights|barnleggings|barnstrumpbyxor|kn\u00e4strumpor f\u00f6r barn/,
+    "baby-kids",
+    null,
+  ],
+
+  // Socks and hosiery - Swedish, Dutch and English
+  [
+    /strump|sockor|socken|sokken|socks?|hosiery|tights|strumpbyxor|kousen/,
+    "fashion",
+    null,
+  ],
+
+  // Underwear and leggings
+  [
+    /underkläder|underklader|underwear|trosa|trosor|boxer shorts|boxershorts|leggings/,
+    "fashion",
+    null,
+  ],
+
+  // Football and Swedish sports categories
+  [
+    /fotboll|football|soccer/,
+    "sports",
+    null,
+  ],
   // Order matters: more specific first.
+
   [/coffee beans|ground coffee|\btea\b|coffee pods|capsules/, "groceries", "drinks"],
   [/head ?phone|earphone|ear ?bud|headset/, "electronics", "headphones"],
   [/speaker|soundbar|hi-?fi/, "electronics", "speakers"],
