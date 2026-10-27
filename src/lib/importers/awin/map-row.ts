@@ -75,7 +75,7 @@ export function mapAwinRow(values: Record<string, string>, rowNumber: number, ct
   if (!isPermittedAwinLink(click)) return fail("missing_link", "No valid https Awin tracking link (aw_deep_link); offer cannot be linked.");
 
   const conditionRaw = pick(values, "condition");
-  const condition = normalizeCondition(conditionRaw);
+ const condition = normalizeCondition(conditionRaw?.trim().toLowerCase() === "ny" ? "new" : conditionRaw);
   if (condition === "invalid") return fail("unknown_condition", `Unrecognised condition "${conditionRaw}". Not imported, to avoid mixing conditions.`);
 
   const gtinRaw = pick(values, "ean", "product_GTIN", "gtin", "upc", "isbn");

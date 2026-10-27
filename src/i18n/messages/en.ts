@@ -722,7 +722,7 @@ export const en = {
   "contact.lead": "Questions about prices, data or privacy? Send us an email.",
   "contact.email": "Email",
   "contact.write": "Write to us",
-  "contact.notSet": "A contact address has not been published yet. It will appear here before PriceViva opens to the public.",
+ "contact.notSet": "Contact PriceViva at contact@priceviva.com for questions about products, prices, partnerships or privacy.",
   "contact.helpful": "Helpful to include",
   "contact.h1": "A link to the product or page you mean",
   "contact.h2": "Your delivery country and currency, if it is about a price",
