@@ -40,7 +40,7 @@ export const serverEnv = {
     return read("ADMIN_SESSION_SECRET");
   },
   get maxEnabledFeeds() {
-    const n = Number(read("AWIN_MAX_ENABLED_FEEDS") ?? "1");
+    const n = Number(read("AWIN_MAX_ENABLED_FEEDS") ?? "5");
     return Number.isInteger(n) && n >= 1 && n <= 50 ? n : 1;
   },
   get maxRowsPerFeed() {
