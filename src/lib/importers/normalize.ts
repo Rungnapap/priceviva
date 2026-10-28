@@ -14,6 +14,23 @@ export function normalizeGtin(raw: string | null | undefined): string | null {
   return check === Number(g[13]) ? g : null;
 }
 
+/** Explicit pack counts only; missing counts are unknown, never assumed to be one.
+ * Invalid or contradictory evidence must not enter a cross-retailer identity.
+ * Dimensions, volume, stock quantity and an unqualified number are not pack counts.
+ */
+export function normalizePackQuantity(raw: readonly (string | null | undefined)[], title: string): { quantity: number | null; uncertain: boolean } {
+  const counts = new Set<number>();
+  let uncertain = false;
+  const add = (value: string) => {
+    if (!/^[1-9]\d{0,5}$/.test(value) || Number(value) > 100_000) uncertain = true;
+    else counts.add(Number(value));
+  };
+  for (const value of raw) if (value?.trim()) add(value.trim());
+  for (const match of title.matchAll(/\b(\d{1,6})[ -]?(?:pack|pk)\b|\bpack of\s+(\d{1,6})\b/gi)) add(match[1] ?? match[2]!);
+  if (counts.size > 1) uncertain = true;
+  return { quantity: uncertain ? null : [...counts][0] ?? null, uncertain };
+}
+
 /**
  * Parse a price like "1 299,00", "1,299.00", "15.00 GBP", "£15" into minor units.
  * Returns null when the value is empty or not a clean number — never guesses.

@@ -78,7 +78,7 @@ export const demoRepository: CatalogRepository = {
       .map(({ product: p }) => ({ slug: p.slug, label: `${getBrand(p.brand)?.name ?? ""} ${p.name}`, hint: p.variant }));
   },
   async related(p, limit) {
-    return views().filter((x) => x.subcategory === p.subcategory && x.id !== p.id && x.model !== p.model).slice(0, limit);
+    return views().filter((x) => x.department === p.department && x.subcategory === p.subcategory && x.id !== p.id && x.model !== p.model).slice(0, limit);
   },
   async brands() {
     return brands.map((b) => ({ slug: b.slug, name: b.name }));

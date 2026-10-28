@@ -1,3 +1,4 @@
+import { categoryFilter } from "@/lib/catalog-categories";
 import Link from "next/link";
 import { Card, Flash, one, Pill, when } from "@/components/admin-ui";
 import { departments } from "@/data/departments";
@@ -91,7 +92,7 @@ export default async function Issues({ searchParams }: { searchParams: Promise<R
                     </span>
                     <span className="flex gap-2">
                       <label className="sr-only" htmlFor={`t-${r.id}`}>Department</label>
-                      <select id={`t-${r.id}`} name="target" defaultValue={r.department_slug ? `${r.department_slug}${r.subcategory_slug ? `/${r.subcategory_slug}` : ""}` : ""} className="h-9 rounded-lg border border-line bg-surface px-2">
+                      <select id={`t-${r.id}`} name="target" defaultValue={categoryFilter(r.department_slug ? `${r.department_slug}${r.subcategory_slug ? `/${r.subcategory_slug}` : ""}` : "")} className="h-9 rounded-lg border border-line bg-surface px-2">
                         <option value="">(unmapped)</option>
                         {targets.map((t) => <option key={t.v} value={t.v}>{t.l}</option>)}
                       </select>

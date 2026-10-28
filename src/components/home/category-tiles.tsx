@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { shopCategories } from "@/data/shop-categories";
+import { shopCategories, shopCategoryHref } from "@/data/shop-categories";
 import { categoryLabel, type TFunction } from "@/i18n";
 import { ArrowRight } from "../icons";
 import { SiteImage } from "../site-image";
@@ -25,7 +25,7 @@ export function CategoryTiles({ t }: { t: TFunction }) {
       <ul className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-4 xl:grid-cols-8">
         {PRIMARY.map((c) => (
           <li key={c.slug}>
-            <Link href={`/shop/${c.slug}`} className="pv-photo-zoom group block">
+            <Link href={shopCategoryHref(c.slug)} className="pv-photo-zoom group block">
               <span className="relative block aspect-[3/2] overflow-hidden rounded-xl bg-surface-2 shadow-card">
                 <SiteImage src={c.image} alt={c.imageAlt} sizes="(min-width:1280px) 12vw, (min-width:640px) 25vw, 50vw" style={{ objectPosition: c.imagePosition ?? "50% 50%" }} />
               </span>
@@ -38,7 +38,7 @@ export function CategoryTiles({ t }: { t: TFunction }) {
         <nav aria-label={t("home.moreCategories")} className="mt-4 flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium text-ink">{t("home.moreCatsLabel")}</span>
           {others.map((c) => (
-            <Link key={c.slug} href={`/shop/${c.slug}`} className="rounded-full border border-line bg-surface px-3 py-1.5 text-ink hover:border-primary hover:text-primary">
+            <Link key={c.slug} href={shopCategoryHref(c.slug)} className="rounded-full border border-line bg-surface px-3 py-1.5 text-ink hover:border-primary hover:text-primary">
               {categoryLabel(t, c.slug, c.name)}
             </Link>
           ))}

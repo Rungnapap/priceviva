@@ -2,6 +2,7 @@
  * Pure helpers over catalogue views. Safe in both server and client components
  * (they never import demo data or server secrets).
  */
+import { catalogCategory } from "./catalog-categories";
 import { rankOffers, type Ranking } from "./pricing";
 import { discountPercent, type FxTable } from "./money";
 import type { CatalogOffer, CatalogProduct, CountryCode, CurrencyCode } from "./types";
@@ -23,5 +24,6 @@ export function bestVerifiedDiscount(product: CatalogProduct): number | null {
 
 /** Comparison is only allowed within one department/subcategory. */
 export function compareGroup(p: Pick<CatalogProduct, "department" | "subcategory">): string {
-  return `${p.department || "uncategorised"}/${p.subcategory || "-"}`;
+  const category = catalogCategory(p.department, p.subcategory);
+  return `${category.department || "uncategorised"}/${category.subcategory || "-"}`;
 }

@@ -1,3 +1,4 @@
+import { categoryFilter } from "@/lib/catalog-categories";
 import { departments } from "@/data/departments";
 import { guardAdminPost } from "@/lib/server/admin-auth";
 import { rpc } from "@/lib/server/supabase-rpc";
@@ -8,7 +9,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
   if (denied) return denied;
   const { id } = await params;
   const f = await req.formData();
-  const [dept = "", sub = ""] = String(f.get("target") ?? "").split("/");
+  const [dept = "", sub = ""] = categoryFilter(String(f.get("target") ?? "")).split("/");
   const d = departments.find((x) => x.slug === dept);
   if (dept && !d) return back(req, "/admin/issues?kind=categories", "Unknown department.", false);
   if (sub && !d?.subcategories.some((s) => s.slug === sub)) return back(req, "/admin/issues?kind=categories", "Unknown subcategory.", false);

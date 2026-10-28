@@ -88,6 +88,7 @@ export const de: Record<MessageKey, string> = {
 
   "cat.fashion": "Mode",
   "cat.beauty": "Beauty & Körperpflege",
+  "cat.furniture": "Möbel",
   "cat.home-living": "Wohnen",
   "cat.electronics": "Elektronik",
   "cat.sports-outdoor": "Sport & Outdoor",
@@ -595,7 +596,8 @@ export const de: Record<MessageKey, string> = {
   "search.sortedNote": "Nach vollständigem Gesamtpreis für Ihr Lieferland sortiert. Produkte ohne vollständigen Gesamtpreis stehen am Ende.",
   "catBlurb.fashion": "Kleidung, Schuhe, Taschen, Uhren und Accessoires",
   "catBlurb.beauty": "Make-up, Düfte und Hautpflege",
-  "catBlurb.home-living": "Möbel, Beleuchtung, Textilien und Deko",
+  "catBlurb.furniture": "Sofas, Stühle, Tische, Betten und Aufbewahrungsmöbel",
+  "catBlurb.home-living": "Beleuchtung, Heimtextilien, Ordnung und Dekoration",
   "catBlurb.electronics": "Handys, Computer, Audio, TVs und Smart Home",
   "catBlurb.sports-outdoor": "Fitness, Laufen, Wandern, Camping und Radfahren",
   "catBlurb.kids-baby": "Spielzeug, Spiele, Babybedarf und Kinderartikel",

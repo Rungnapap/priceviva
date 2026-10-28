@@ -52,12 +52,23 @@ export const shopCategories: ShopCategory[] = [
   {
     slug: "home-living",
     name: "Home & Living",
-    blurb: "Furniture, lighting, textiles and decor",
+    blurb: "Lighting, home textiles, organizers and decor",
     departments: ["home"],
     image: "/images/site/cat-home-v7.webp",
     imageSize: [1672, 941],
     imageAlt: "A sunlit living room with a cream sofa, cushions, a marble coffee table and flowers",
     imagePosition: "55% 60%",
+    featured: true,
+  },
+  {
+    slug: "furniture",
+    name: "Furniture",
+    blurb: "Sofas, chairs, tables, beds and storage furniture",
+    departments: ["furniture"],
+    image: "/images/site/cat-home-v7.webp",
+    imageSize: [1672, 941],
+    imageAlt: "A cream sofa and a marble coffee table in a sunlit living room",
+    imagePosition: "50% 65%",
     featured: true,
   },
   {
@@ -174,3 +185,6 @@ export const getShopCategory = (slug: string) => shopCategories.find((c) => c.sl
 
 /** Which group a department belongs to (first match), for breadcrumbs. */
 export const groupForDepartment = (dept: string) => shopCategories.find((c) => c.departments.includes(dept));
+
+/** Furniture has one canonical landing, shared by navigation, breadcrumbs and SEO. */
+export const shopCategoryHref = (slug: string) => slug === "furniture" ? "/departments/furniture" : `/shop/${slug}`;

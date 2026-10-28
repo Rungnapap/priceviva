@@ -12,6 +12,9 @@ export interface NormalizedRow {
   condition: Condition;
   colour: string | null;
   size: string | null;
+  /** Missing from older clients; SQL must continue accepting those rows. */
+  pack_quantity?: number | null;
+  pack_quantity_uncertain?: boolean;
   variant_label: string;
   description: string | null;
   category: string | null;

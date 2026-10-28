@@ -88,6 +88,7 @@ export const sv: Record<MessageKey, string> = {
 
   "cat.fashion": "Mode",
   "cat.beauty": "Skönhet & personvård",
+  "cat.furniture": "Möbler",
   "cat.home-living": "Hem & inredning",
   "cat.electronics": "Elektronik",
   "cat.sports-outdoor": "Sport & friluftsliv",
@@ -595,7 +596,8 @@ export const sv: Record<MessageKey, string> = {
   "search.sortedNote": "Sorterat efter komplett totalpris med leverans till ditt leveransland. Produkter utan komplett totalpris listas sist.",
   "catBlurb.fashion": "Kläder, skor, väskor, klockor och accessoarer",
   "catBlurb.beauty": "Smink, dofter och hudvård",
-  "catBlurb.home-living": "Möbler, belysning, textilier och inredning",
+  "catBlurb.furniture": "Soffor, stolar, bord, sängar och förvaringsmöbler",
+  "catBlurb.home-living": "Belysning, hemtextilier, förvaring och inredning",
   "catBlurb.electronics": "Mobiler, datorer, ljud, tv och smarta hem",
   "catBlurb.sports-outdoor": "Träning, löpning, vandring, camping och cykling",
   "catBlurb.kids-baby": "Leksaker, spel, babyprodukter och barnartiklar",

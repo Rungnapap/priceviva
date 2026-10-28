@@ -1,4 +1,5 @@
 /** Live catalogue adapter — reads imported retailer data from Supabase through read-only pa_catalog_* functions. */
+import { catalogCategory } from "@/lib/catalog-categories";
 import { fxSnapshot } from "@/data/fx";
 import { rpc } from "@/lib/server/supabase-rpc";
 import type { LocalOfferJson } from "@/lib/local-offers";
@@ -18,6 +19,7 @@ export function fromLive(raw: Raw): CatalogProduct {
   const now = Date.now();
   return {
     ...raw,
+    ...catalogCategory(raw.department, raw.subcategory),
     brand: raw.brand ?? "",
     brandName: raw.brand ?? "",
     keywords: [],

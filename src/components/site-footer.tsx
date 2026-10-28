@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { shopCategories } from "@/data/shop-categories";
+import { shopCategories, shopCategoryHref } from "@/data/shop-categories";
 import { Logo } from "./brand";
 import { useCatalog } from "./catalog-context";
 import { useT } from "./i18n-provider";
@@ -14,7 +14,7 @@ export function SiteFooter() {
   const { mode, fx } = useCatalog();
   const t = useT();
   const cols: { title: string; links: (readonly [string, string])[] }[] = [
-    { title: t("foot.shop"), links: [...shopCategories.slice(0, 6).map((c) => [categoryLabel(t, c.slug, c.name), `/shop/${c.slug}`] as const), [t("nav.allDepartments"), "/departments"] as const] },
+    { title: t("foot.shop"), links: [...shopCategories.slice(0, 6).map((c) => [categoryLabel(t, c.slug, c.name), shopCategoryHref(c.slug)] as const), [t("nav.allDepartments"), "/departments"] as const] },
     {
       title: t("foot.compareSave"),
       links: [

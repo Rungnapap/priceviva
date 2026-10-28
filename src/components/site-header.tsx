@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { departments } from "@/data/departments";
 import { cities } from "@/data/places";
-import { shopCategories } from "@/data/shop-categories";
+import { shopCategories, shopCategoryHref } from "@/data/shop-categories";
 import { actions, useClientState, useHydrated, type ThemeChoice } from "@/lib/client-store";
 import { authActions, useAuth } from "@/lib/auth-client";
 import { activeArea, areaName } from "@/lib/location";
@@ -251,7 +251,7 @@ function MegaMenu({ onNavigate }: { onNavigate: () => void }) {
       <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
         {shopCategories.map((c) => (
           <li key={c.slug}>
-            <Link href={`/shop/${c.slug}`} onClick={onNavigate} className="font-semibold text-ink hover:text-primary">
+            <Link href={shopCategoryHref(c.slug)} onClick={onNavigate} className="font-semibold text-ink hover:text-primary">
               {categoryLabel(t, c.slug, c.name)}
             </Link>
             <ul className="mt-2 space-y-1.5">
@@ -510,7 +510,7 @@ export function SiteHeader() {
             {shopCategories.map((c, i) => (
               // Links that don't fully fit are made invisible (and leave the tab order); they stay in "All Categories".
               <li key={c.slug} className={clsx("shrink-0", i >= catFit && "invisible")} aria-hidden={i >= catFit ? true : undefined}>
-                <Link href={`/shop/${c.slug}`} className="block whitespace-nowrap rounded-full px-3 py-2 font-medium text-ink hover:bg-surface-2 hover:text-primary">
+                <Link href={shopCategoryHref(c.slug)} className="block whitespace-nowrap rounded-full px-3 py-2 font-medium text-ink hover:bg-surface-2 hover:text-primary">
                   {categoryLabel(t, c.slug, c.name)}
                 </Link>
               </li>
@@ -588,7 +588,7 @@ export function SiteHeader() {
                 <ul className="space-y-0.5">
                   {shopCategories.map((c) => (
                     <li key={c.slug}>
-                      <Link href={`/shop/${c.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 hover:bg-surface-2">
+                      <Link href={shopCategoryHref(c.slug)} onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 hover:bg-surface-2">
                         {categoryLabel(t, c.slug, c.name)}
                       </Link>
                     </li>
