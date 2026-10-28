@@ -14,7 +14,7 @@ export const departments: Department[] = [
     subcategories: [{ slug: "laptops", name: "Laptops" }, { slug: "tablets", name: "Tablets" }, { slug: "monitors", name: "Monitors" }, { slug: "gaming", name: "Gaming gear" }] },
   { slug: "kitchen", name: "Kitchen & Appliances", tagline: "Coffee, cooking and cleaning", icon: "chef-hat", hue: 25, populated: true,
     subcategories: [{ slug: "coffee", name: "Coffee machines" }, { slug: "cookware", name: "Cookware" }, { slug: "small-appliances", name: "Small appliances" }, { slug: "kitchen-accessories", name: "Kitchen accessories" }] },
-  { slug: "home", name: "Home & Furniture", tagline: "Lighting, textiles and storage", icon: "sofa", hue: 35, populated: true,
+  { slug: "home", name: "Home & Living", tagline: "Lighting, textiles and storage", icon: "sofa", hue: 35, populated: true,
     subcategories: [{ slug: "lighting", name: "Lighting" }, { slug: "textiles", name: "Textiles" }, { slug: "storage", name: "Storage" }, { slug: "furniture", name: "Furniture" }, { slug: "decor", name: "Decor" }] },
   { slug: "sports", name: "Sports & Fitness", tagline: "Training, running and recovery", icon: "dumbbell", hue: 150, populated: true,
     subcategories: [{ slug: "fitness", name: "Fitness equipment" }, { slug: "running", name: "Running" }, { slug: "wearables", name: "Sports wearables" }, { slug: "sports-accessories", name: "Sports accessories" }] },

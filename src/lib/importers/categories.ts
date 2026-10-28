@@ -34,7 +34,12 @@ const RULES: Rule[] = [
     null,
   ],
   // Order matters: more specific first.
-
+// Beauty products must be checked before kitchen appliances.
+[
+  /make-?up|cosmetic|foundation|concealer|beauty blender|face blender|blending sponge|makeup sponge|ecotools|skincare|skin care|moisturising|moisturizing|face cream|body cream|nivea/,
+  "beauty",
+  null,
+],
   [/coffee beans|ground coffee|\btea\b|coffee pods|capsules/, "groceries", "drinks"],
   [/head ?phone|earphone|ear ?bud|headset/, "electronics", "headphones"],
   [/speaker|soundbar|hi-?fi/, "electronics", "speakers"],
