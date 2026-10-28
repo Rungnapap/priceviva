@@ -129,7 +129,7 @@ test("second feed can be enabled after success; cross-retailer GTIN match works"
   // BETA-2: same GTIN as the white one but says Red -> kept separate + flagged for review.
   assert.equal(await q(`select count(*) from match_reviews where reason = 'gtin_attribute_conflict' and status = 'open'`), "1");
   assert.equal(await q(`select count(*) from offers o join variants v on v.id = o.variant_id where v.identity_key = 'gtin:02000000000022|new'`), "1");
-  assert.equal(await q(`select colour from variants where identity_key like 'src:awin:9002:BETA-2'`), "Red");
+  assert.equal(await q(`select colour from variants where identity_key like 'src:awin:9002:BETA-2|condition:new|pack:%'`), "Red");
 });
 
 test("product view: all offers listed, gallery images, verified total only when costs known", { skip }, async () => {

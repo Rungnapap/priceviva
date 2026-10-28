@@ -59,3 +59,5 @@ export const EyeOff = mk(<><path d="M9.9 4.2A10 10 0 0 1 12 4c6.4 0 10 8 10 8a17
 export const Lock = mk(<><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></>);
 export const LogIn = mk(<><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="m10 17 5-5-5-5M15 12H3" /></>);
 export const LogOut = mk(<><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="m16 17 5-5-5-5M21 12H9" /></>);
+
+export const House = mk(<><path d="m3 10 9-7 9 7v11H3z" /><path d="M9 21v-8h6v8" /></>);

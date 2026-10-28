@@ -1,3 +1,4 @@
+import { shopCategoryHref } from "@/data/shop-categories";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { backdrops } from "@/data/site-backgrounds";
@@ -45,7 +46,7 @@ export function Hero({ t, example }: { t: TFunction; example?: ReactNode }) {
           <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
             <span className="rounded-full bg-surface/85 px-1.5 text-muted">{t("home.popularCats")}</span>
             {POPULAR.map((slug) => (
-              <Link key={slug} href={`/shop/${slug}`} className="rounded-full border border-line bg-surface/95 px-3 py-1 text-ink hover:border-primary hover:text-primary">
+              <Link key={slug} href={shopCategoryHref(slug)} className="rounded-full border border-line bg-surface/95 px-3 py-1 text-ink hover:border-primary hover:text-primary">
                 {t(`cat.${slug}`)}
               </Link>
             ))}

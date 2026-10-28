@@ -106,13 +106,16 @@ test("products without sample offers show only the unverified list price", async
 test("repository: search with typo, category filter, brand list, suggestions, related", async () => {
 const s = await repo.search("beauty", {});
   assert.ok(s.items.length >= 5 && s.items.every((p) => p.department === "beauty"));
-  const filtered = await repo.search("", { department: "home" });
+  const filtered = await repo.search("", { department: "furniture" });
   assert.equal(filtered.items.length, 5);
   assert.deepEqual(await repo.brands(), [{ slug: "fixture-brand", name: "Fixture Brand" }]);
   assert.ok((await repo.suggest("lapt"))[0]!.label.includes("Laptop"));
   const p = (await repo.product("fixture-armchair-11-dj11"))!;
   assert.ok(p);
-  assert.ok((await repo.related(p, 4)).every((r) => r.subcategory === "furniture"));
+  const related = await repo.related(p, 4);
+  assert.equal(related.length, 4);
+  assert.ok(related.every((r) => r.department === "furniture" && r.subcategory === "sofas"));
+  assert.equal((await repo.search("", { department: "home" })).items.length, 0);
   assert.equal((await repo.priceDrops(10)).length, 0);
   const meta = await repo.meta();
   assert.equal(meta.mode, "sample");
