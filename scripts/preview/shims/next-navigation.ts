@@ -8,3 +8,5 @@ export function navigate(href: string) {
 export function useRouter() { return { push: navigate, replace: navigate, back: () => history.back(), refresh: () => {} }; }
 export function usePathname() { return location.pathname; }
 export function notFound(): never { throw new NotFoundError("not found"); }
+
+export function permanentRedirect(href: string): never { navigate(href); throw new Error(`Redirect: ${href}`); }

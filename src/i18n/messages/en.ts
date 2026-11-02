@@ -90,6 +90,7 @@ export const en = {
   // Categories (shopper groups)
   "cat.fashion": "Fashion",
   "cat.beauty": "Beauty & Personal Care",
+  "cat.furniture": "Furniture",
   "cat.home-living": "Home & Living",
   "cat.electronics": "Electronics",
   "cat.sports-outdoor": "Sports & Outdoor",
@@ -599,7 +600,8 @@ export const en = {
   "search.sortedNote": "Sorted by complete delivered total for your delivery destination. Products without a complete total are listed last.",
   "catBlurb.fashion": "Clothing, shoes, bags, watches and accessories",
   "catBlurb.beauty": "Make-up, fragrances and skin care",
-  "catBlurb.home-living": "Furniture, lighting, textiles and decor",
+  "catBlurb.furniture": "Sofas, chairs, tables, beds and storage furniture",
+  "catBlurb.home-living": "Lighting, home textiles, organizers and decor",
   "catBlurb.electronics": "Phones, computers, audio, TVs and smart home",
   "catBlurb.sports-outdoor": "Fitness, running, hiking, camping and cycling",
   "catBlurb.kids-baby": "Toys, games, nursery and kids' essentials",

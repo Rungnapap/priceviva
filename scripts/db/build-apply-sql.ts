@@ -34,7 +34,7 @@ export const SERVER_FUNCTIONS = [
 /** Callable only by a signed-in user (their own data, row-level security applies). */
 export const USER_FUNCTIONS = ["pa_me_data", "pa_me_sync"] as const;
 /** Used only inside the database. */
-export const INTERNAL_FUNCTIONS = ["pa_norm", "pa_slugify", "pa_refresh_search_doc", "pa_conflicts", "pa_variant_json", "pa_alerts_guard"] as const;
+export const INTERNAL_FUNCTIONS = ["pa_norm", "pa_catalog_category", "pa_slugify", "pa_refresh_search_doc", "pa_conflicts", "pa_variant_json", "pa_alerts_guard"] as const;
 
 const root = path.resolve(import.meta.dirname, "../..");
 export const BUNDLE_PATH = path.join(root, "supabase/apply/priceviva_apply_all.sql");

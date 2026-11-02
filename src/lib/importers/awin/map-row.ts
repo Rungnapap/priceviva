@@ -8,6 +8,7 @@ import {
   httpsUrl,
   normalizeCondition,
   normalizeGtin,
+  normalizePackQuantity,
   normalizeStock,
   parseDate,
   parsePriceMinor,
@@ -103,8 +104,10 @@ const currency = (pick(values, "currency") ?? price.currency ?? ctx.currency ?? 
   const mpn = cleanText(pick(values, "mpn", "model_number", "product_model"), 80);
   const colour = cleanText(pick(values, "colour", "color", "Fashion:colour"), 60);
   const size = cleanText(pick(values, "Fashion:size", "size"), 40);
+  const pack = normalizePackQuantity([values.multipack, values.pack_quantity], title);
+  if (pack.uncertain) warn("pack_quantity_uncertain", "Pack quantity is invalid or contradictory; this listing will not be matched across retailers.");
   const category = cleanText(pick(values, "merchant_product_category_path", "merchant_category", "category_name", "product_type", "google_product_category"), 300);
-  const guess = guessDepartment({ ...categoryInput, condition });
+  const guess = guessDepartment(categoryInput, condition);
 
   // Images: prefer the merchant's full-size image, then Awin's copy, then alternates. https only.
   const imageCandidates = [
@@ -156,7 +159,7 @@ const currency = (pick(values, "currency") ?? price.currency ?? ctx.currency ?? 
   const specText = cleanText(values["specifications"] ?? values["product_detail"], 1500);
   if (specText) specs["Specifications"] = specText;
 
-  const variantLabel = [colour, size, condition !== "new" ? condition.replace("_", " ") : null].filter(Boolean).join(" · ");
+  const variantLabel = [colour, size, pack.quantity != null && pack.quantity > 1 ? `${pack.quantity}-pack` : null, condition !== "new" ? condition.replace("_", " ") : null].filter(Boolean).join(" · ");
 
   return {
     issues,
@@ -170,6 +173,8 @@ const currency = (pick(values, "currency") ?? price.currency ?? ctx.currency ?? 
       condition,
       colour,
       size,
+      pack_quantity: pack.quantity,
+      pack_quantity_uncertain: pack.uncertain,
       variant_label: variantLabel,
       description: cleanText(pick(values, "description", "product_short_description"), 5000),
       category,

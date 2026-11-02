@@ -88,6 +88,7 @@ export const th: Record<MessageKey, string> = {
 
   "cat.fashion": "แฟชั่น",
   "cat.beauty": "ความงามและของใช้ส่วนตัว",
+  "cat.furniture": "เฟอร์นิเจอร์",
   "cat.home-living": "บ้านและการตกแต่ง",
   "cat.electronics": "อิเล็กทรอนิกส์",
   "cat.sports-outdoor": "กีฬาและกิจกรรมกลางแจ้ง",
@@ -595,7 +596,8 @@ export const th: Record<MessageKey, string> = {
   "search.sortedNote": "เรียงตามราคารวมค่าส่งที่ครบถ้วนไปยังประเทศที่จัดส่ง สินค้าที่ไม่มีราคารวมครบถ้วนจะอยู่ท้ายสุด",
   "catBlurb.fashion": "เสื้อผ้า รองเท้า กระเป๋า นาฬิกา และเครื่องประดับ",
   "catBlurb.beauty": "เครื่องสำอาง น้ำหอม และผลิตภัณฑ์ดูแลผิว",
-  "catBlurb.home-living": "เฟอร์นิเจอร์ ไฟ สิ่งทอ และของตกแต่ง",
+  "catBlurb.furniture": "โซฟา เก้าอี้ โต๊ะ เตียง และเฟอร์นิเจอร์จัดเก็บของ",
+  "catBlurb.home-living": "แสงสว่าง สิ่งทอในบ้าน อุปกรณ์จัดเก็บ และของตกแต่ง",
   "catBlurb.electronics": "โทรศัพท์ คอมพิวเตอร์ เครื่องเสียง ทีวี และสมาร์ทโฮม",
   "catBlurb.sports-outdoor": "ฟิตเนส วิ่ง เดินป่า แคมปิ้ง และจักรยาน",
   "catBlurb.kids-baby": "ของเล่น เกม ของใช้เด็กอ่อน และของจำเป็นสำหรับเด็ก",

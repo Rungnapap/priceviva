@@ -13,6 +13,7 @@
  *  - DummyJSON barcodes are random numbers, so they are never treated as real GTINs.
  *  - Stock status is shown only as unverified sample text.
  */
+import { guessDepartment } from "@/lib/importers/categories";
 import { httpsUrl, cleanText } from "@/lib/importers/normalize";
 import type { CatalogOffer, CatalogProduct, CostComponent, DestinationTerms } from "@/lib/types";
 import { SUPPORTED_COUNTRIES } from "@/lib/types";
@@ -46,7 +47,7 @@ export const DUMMY_CATEGORY_MAP: Record<string, [string, string | null]> = {
   beauty: ["beauty", "makeup"],
   fragrances: ["beauty", "fragrances"],
   "skin-care": ["beauty", "skin-care"],
-  furniture: ["home", "furniture"],
+  furniture: ["furniture", null],
   "home-decoration": ["home", "decor"],
   "kitchen-accessories": ["kitchen", "kitchen-accessories"],
   groceries: ["groceries", "pantry"],
@@ -112,7 +113,8 @@ export const SAMPLE_LIST_RETAILER = { id: "dummyjson", name: "DummyJSON sample l
 export function mapDummyProduct(d: DummyProduct, fetchedAt: string): { product: CatalogProduct; issues: SampleIssue[] } {
   const issues: SampleIssue[] = [];
   const ref = `dj-${d.id}`;
-  const [department, subcategory] = DUMMY_CATEGORY_MAP[d.category] ?? [null, null];
+  const [department, mappedSubcategory] = DUMMY_CATEGORY_MAP[d.category] ?? [null, null];
+  const subcategory = department === "furniture" ? guessDepartment("Furniture", d.title, "new").subcategory : mappedSubcategory;
   if (!department) issues.push({ ref, code: "unmapped_category", message: `Category "${d.category}" has no department mapping; product is searchable only.` });
 
   const allowed = (u: string | null | undefined): string | null => {

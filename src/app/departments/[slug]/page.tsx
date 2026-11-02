@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { legacyDepartmentRedirect } from "@/lib/catalog-categories";
 import { getDepartment } from "@/data/departments";
 import { promotions } from "@/data/places";
 import { getRepository } from "@/lib/catalog/repository";
@@ -13,8 +14,10 @@ import { getT } from "@/i18n/server";
 type Params = Promise<{ slug: string }>;
 type SP = Promise<Record<string, string | string[] | undefined>>;
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const d = getDepartment((await params).slug);
+export async function generateMetadata({ params, searchParams }: { params: Params; searchParams: SP }): Promise<Metadata> {
+  const slug = (await params).slug;
+  const target = legacyDepartmentRedirect(slug, await searchParams);
+  const d = getDepartment(target ? "furniture" : slug);
   if (!d) return { title: "Department not found" };
   // Filters (?sub=, ?page=) show the same department, so they all point search engines at the plain address.
   return { title: d.name, description: `${d.name}: ${d.tagline}. Compare prices and delivered totals from retailers on PriceViva.`, alternates: { canonical: `/departments/${d.slug}` } };
@@ -29,8 +32,10 @@ const GUIDANCE: Record<string, string> = {
 };
 
 export default async function DepartmentPage({ params, searchParams }: { params: Params; searchParams: SP }) {
-  const t = await getT();
   const { slug } = await params;
+  const redirect = legacyDepartmentRedirect(slug, await searchParams);
+  if (redirect) permanentRedirect(redirect);
+  const t = await getT();
   const d = getDepartment(slug);
   if (!d) notFound();
   const subRaw = (await searchParams).sub;

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { getDepartment } from "@/data/departments";
-import { getShopCategory, shopCategories } from "@/data/shop-categories";
+import { getShopCategory, shopCategories, shopCategoryHref } from "@/data/shop-categories";
 import { getRepository } from "@/lib/catalog/repository";
 import type { CatalogProduct } from "@/lib/types";
 import { Package } from "@/components/icons";
@@ -22,13 +22,14 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const c = getShopCategory((await params).slug);
   if (!c) return { title: "Category not found" };
-  return { title: c.name, description: `${c.name}: ${c.blurb.trim().replace(/\.?$/, ".")} Compare prices on PriceViva.`, alternates: { canonical: `/shop/${c.slug}` } };
+  return { title: c.name, description: `${c.name}: ${c.blurb.trim().replace(/\.?$/, ".")} Compare prices on PriceViva.`, alternates: { canonical: shopCategoryHref(c.slug) } };
 }
 
 /** A shopper-facing category (e.g. Electronics) that groups several catalogue departments. */
 export default async function ShopCategoryPage({ params }: { params: Params }) {
   const c = getShopCategory((await params).slug);
   if (!c) notFound();
+  if (c.slug === "furniture") permanentRedirect(shopCategoryHref(c.slug));
   const repo = getRepository();
   const [meta, locale] = await Promise.all([repo.meta(), getLocale()]);
   const t = makeT(locale);
@@ -98,7 +99,7 @@ export default async function ShopCategoryPage({ params }: { params: Params }) {
             {shopCategories
               .filter((o) => o.slug !== c.slug)
               .map((o) => (
-                <Link key={o.slug} href={`/shop/${o.slug}`} className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm hover:border-primary hover:text-primary">
+                <Link key={o.slug} href={shopCategoryHref(o.slug)} className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm hover:border-primary hover:text-primary">
                   {categoryLabel(t, o.slug, o.name)}
                 </Link>
               ))}

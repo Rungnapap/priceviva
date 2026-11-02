@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { permanentRedirect } from "next/navigation";
+import { legacySearchRedirect } from "@/lib/catalog-categories";
 import { departments } from "@/data/departments";
 import { getRepository } from "@/lib/catalog/repository";
 import type { SortKey } from "@/lib/search";
@@ -26,6 +28,8 @@ export async function generateMetadata({ searchParams }: { searchParams: SP }): 
 
 export default async function SearchPage({ searchParams }: { searchParams: SP }) {
   const sp = await searchParams;
+  const redirect = legacySearchRedirect(sp);
+  if (redirect) permanentRedirect(redirect);
   const t = await getT();
   // Validate & bound everything that comes from the URL.
   const q = one(sp.q).slice(0, 120);

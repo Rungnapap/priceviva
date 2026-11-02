@@ -6,7 +6,7 @@ import { compareGroup } from "@/lib/catalog-queries";
 import { getRepository } from "@/lib/catalog/repository";
 import { ChevronRight } from "@/components/icons";
 import { PriceAlertButton } from "@/components/alerts";
-import { groupForDepartment } from "@/data/shop-categories";
+import { groupForDepartment, shopCategoryHref } from "@/data/shop-categories";
 import { BestOfferSummary, OfferTable } from "@/components/offer-table";
 import { PriceHistoryChart } from "@/components/price-history-chart";
 import { CompareButton, SaveButton } from "@/components/product-actions";
@@ -69,7 +69,7 @@ export default async function ProductPage({ params }: { params: Params }) {
         <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
         {group && group.name !== dept?.name && (
           <>
-            <Link href={`/shop/${group.slug}`} className="hover:text-primary">{categoryLabel(t, group.slug, group.name)}</Link>
+            <Link href={shopCategoryHref(group.slug)} className="hover:text-primary">{categoryLabel(t, group.slug, group.name)}</Link>
             <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
           </>
         )}

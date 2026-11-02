@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { departments } from "@/data/departments";
-import { shopCategories } from "@/data/shop-categories";
+import { catalogSitemapPaths } from "@/lib/catalog-sitemap";
 import { getRepository } from "@/lib/catalog/repository";
 import { indexingAllowed, siteUrl } from "@/lib/server/seo";
 
@@ -19,18 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (!indexingAllowed()) return [];
   const base = siteUrl();
   const repo = getRepository();
-  const meta = await repo.meta().catch(() => null);
-  const hasProducts = (slug: string) => (meta?.departmentCounts[slug] ?? 0) > 0;
+  const counts = await repo.meta().then((m) => m.departmentCounts).catch(() => ({}));
 
   const pages: MetadataRoute.Sitemap = [
     { url: `${base}/`, changeFrequency: "daily", priority: 1 },
     ...["/departments", "/about", "/contact", "/privacy"].map((p) => ({ url: `${base}${p}`, changeFrequency: "weekly" as const, priority: 0.5 })),
-    ...shopCategories
-      .filter((c) => !meta || c.departments.some(hasProducts))
-      .map((c) => ({ url: `${base}/shop/${c.slug}`, changeFrequency: "daily" as const, priority: 0.8 })),
-    ...departments
-      .filter((d) => !meta || hasProducts(d.slug))
-      .map((d) => ({ url: `${base}/departments/${d.slug}`, changeFrequency: "daily" as const, priority: 0.7 })),
+    ...catalogSitemapPaths(counts).map((p) => ({ url: `${base}${p}`, changeFrequency: "daily" as const, priority: 0.8 })),
   ];
 
   // Products, read in pages. If the database is slow or the sitemap function is missing, the sitemap still

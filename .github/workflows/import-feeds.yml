@@ -17,6 +17,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   import:
+    # Production credentials must never be used by a testing branch.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:

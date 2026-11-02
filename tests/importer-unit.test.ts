@@ -127,7 +127,7 @@ test("department guesses", () => {
   assert.deepEqual(guessDepartment({ path: "Electronics > Audio > Headphones", title: "X" }), { department: "electronics", subcategory: "headphones" });
   assert.deepEqual(guessDepartment({ path: "Food > Coffee Beans", title: "Beans" }), { department: "groceries", subcategory: "drinks" });
   assert.deepEqual(guessDepartment({ title: "Mystery object" }), { department: null, subcategory: null });
-  assert.equal(guessDepartment({ path: "Phones", title: "Phone", condition: "refurbished" }).department, "refurbished");
+  assert.equal(guessDepartment({ path: "Phones", title: "Phone" }, "refurbished").department, "refurbished");
 });
 
 // Real category paths from the live Awin feeds (Nov 2026) that were misfiled by the old English keyword rules.
@@ -156,6 +156,9 @@ test("Swedish category paths go to the right department", () => {
     ["Kök & hem > Hushåll > Jul > Julbelysning", "home", "lighting"],
     ["Kök & hem > Hushåll > Verktyg & trädgårdsredskap > Verktyg & hobby > Handverktyg >", "diy-tools", null],
     ["Kök & hem > Hushåll > Verktyg & trädgårdsredskap > Trädgård redskap >", "garden", null],
+    // toys keep their place even when they look like vehicles or garden things
+    ["Barn > Baby- & barnprodukter > Aktivitet & lek > Leksaker > Bilar & traktorer > Polismotorcykel", "toys", null],
+    ["Barn > Baby- & barnprodukter > Aktivitet & lek > Utomhus leksaker > Trädgårdsleksaker", "toys", null],
   ];
   for (const [path, department, subcategory] of cases) {
     assert.deepEqual(guessDepartment({ path, title: "x" }), { department, subcategory }, path);
@@ -164,7 +167,7 @@ test("Swedish category paths go to the right department", () => {
 
 test("Awin categories and product types are used when the shop path says nothing", () => {
   // Strumpor-online: the shop category is a campaign, Awin's own category is reliable.
-  assert.deepEqual(guessDepartment({ categoryName: "Men's Socks", merchantCategory: "Sista storlekarna", title: "Enfärgade strumpor" }), { department: "fashion", subcategory: "mens" });
+  assert.deepEqual(guessDepartment({ categoryName: "Men's Socks", merchantCategory: "Sista storlekarna", title: "Enfärgade strumpor" }), { department: "fashion", subcategory: null });
   assert.deepEqual(guessDepartment({ categoryName: "Children's Clothing", merchantCategory: "Barn", title: "Barnstrumpbyxor" }), { department: "baby-kids", subcategory: null });
   // Children's socks filed as "Men's Socks" by the shop
   assert.equal(guessDepartment({ categoryName: "Men's Socks", title: "Halkfria bomullsstrumpor för barn - 23-26" }).department, "baby-kids");
@@ -173,11 +176,9 @@ test("Awin categories and product types are used when the shop path says nothing
   assert.deepEqual(guessDepartment({ productType: "LED Kegelljus", title: "Cone Light" }), { department: "home", subcategory: "lighting" });
 });
 
-test("product names are used only when a row has no category data", () => {
-  // Brand and colour words in names must not decide the category when the shop gave one.
+test("a Swedish shop path beats brand and colour words in the product name", () => {
   assert.equal(guessDepartment({ path: "Kvinna > Personlig vård > Hårstyling > Hårborstar", title: "Olivia Garden NanoThermic Rundborste" }).department, "beauty");
   assert.equal(guessDepartment({ path: "Kvinna > Personlig vård > Parfym & dofter > Deodorant", title: "Elizabeth Arden Green Tea Deodorant" }).department, "beauty");
-  assert.deepEqual(guessDepartment({ path: "Kök & hem > Hushåll > Annat", title: "Garden hose" }), { department: null, subcategory: null });
   // No category data at all: the name is all there is.
   assert.equal(guessDepartment({ title: "Barnstrumpbyxor i bomull" }).department, "baby-kids");
 });

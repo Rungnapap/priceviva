@@ -3,13 +3,22 @@
 Today Google is told to stay away (`robots.txt` says `Disallow: /`, every page says `noindex`).
 The code is ready; these steps switch it on. About 30 minutes, plus waiting for Google.
 
-## 1. Database: add the two new functions (Supabase, 3 minutes)
-Do this first: it makes search fast and lets the sitemap list your products.
+## 1. Database: run the four new migrations (Supabase, 10 minutes)
+On 2 Nov 2026 the live database did not have the 28 Oct migrations yet, so run all four, **in this order**
+(the speed migration builds on the Furniture one):
 
+| # | File in `supabase/migrations/` | What it does |
+|---|---|---|
+| 1 | `20261028120000_condition_pack_matching.sql` | pack sizes ("3-pack") and condition matching |
+| 2 | `20261028140000_furniture_department.sql` | the Furniture department |
+| 3 | `20261102120000_catalog_speed.sql` | faster search, suggestions, lists and counts |
+| 4 | `20261102130000_sitemap.sql` | product addresses for the sitemap |
+
+For each file:
 1. Open https://supabase.com → your project → **SQL Editor** → **New query**.
-2. Open `supabase/migrations/20261102120000_catalog_speed.sql` in Notepad, copy everything, paste, click **Run**.
-   You should see "Success". (A notice that something "already exists, skipping" is fine.)
-3. **New query** again. Same for `supabase/migrations/20261102130000_sitemap.sql` → **Run** → "Success".
+2. Open the file in Notepad, copy everything, paste, click **Run**.
+3. Wait for "Success" before the next file. (A notice that something "already exists, skipping" is fine.)
+   File 1 updates existing rows and can take a minute or two.
 
 ## 2. Vercel: switch indexing on (5 minutes)
 1. https://vercel.com → your PriceViva project → **Settings** → **Environment Variables**.
