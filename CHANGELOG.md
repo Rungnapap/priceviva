@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.7.5 — 2 Nov 2026 — automatic updates fixed
+- Fix: feed imports failed with "canceling statement due to statement timeout". Batches are now 50 rows (was 250), and a batch that times out is split and retried automatically.
+- The nightly import now runs in GitHub Actions (02:37 UTC, 100-minute budget). Vercel no longer schedules it because its function time limit cut full feeds short.
+- A failed or partial nightly import fails the GitHub job, so GitHub emails you.
+- Setup steps: `docs/AUTO_UPDATE.md`.
+
+### Speed
+- New database migration `20261102120000_catalog_speed.sql` (paste into the Supabase SQL editor). Search, suggestions, lists and counts do far less work per request; rankings are unchanged (tested on an 18,000-product copy). Search returns the top 96 matches (was 240). Typo-tolerant matching runs only when exact words find fewer than one page of results; suggestions are ranked from at most 600 candidates.
+  - Local test copy: search "hörlurar" 106 → 17 ms, common word "strumpor" 129 → 58 ms, suggestions 132–144 → 4–6 ms, homepage list 131 → 33 ms.
+- The homepage loads 24 products to pick its featured ones (was 120).
+
+### Search engines (ready to switch on — `docs/GOOGLE_SETUP.md`)
+- Sitemap lists every product with an active offer (new read-only function `pa_catalog_sitemap`, migration `20261102130000_sitemap.sql`), plus home, info and category pages with products.
+- Product pages: brand named once in the title, own description from real prices (not the shop's copied text), canonical address, share preview, schema.org Product/Offer data with real prices only (no ratings or reviews; none for demo/test data).
+- Search results and Global Compare are `noindex, follow`. Department and category pages have canonical addresses.
+- `robots.txt` reads the indexing setting on every request. The site address falls back to Vercel's production domain, and a localhost value is ignored on Vercel, so search engines never get "localhost" addresses.
+
+### Categories
+- New category rules (`src/lib/importers/categories.ts`), checked against all 18,100 products in the live feeds: uncategorised products 2,286 → 37.
+  - Every category field in the feed is used, most reliable first: Bazta's Swedish path, Awin's own category (Strumpor-online), product type (Deluxehomeartshop). Product names are used only when a row has no category at all, because names contain brands and colours ("Olivia Garden" hairbrush, "Green Tea" deodorant).
+  - Swedish rules, with å/ä/ö treated as letters: "tv" no longer matches "tvätt"/"tvål" (laundry and soap had filled Electronics › TVs).
+  - The main section decides: "Husdjurstillbehör > Leksak" is Pets, "Auto & cykel > Rengöring" is Automotive, "Klockor & Smartwatches" is Watches.
+- Adult products (sex toys, condoms, lubricants) are no longer imported (owner decision); they had been listed under Toys. Import logs show them as "excluded by policy", not as errors. Existing ones are switched off by the next full import.
+
 ## 0.7.0 — 25 Oct 2026
 
 ### Accounts, saved products in the account, price-range filter (26 Oct)

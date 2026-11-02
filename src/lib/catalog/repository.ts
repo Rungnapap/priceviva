@@ -58,6 +58,11 @@ export interface CatalogRepository {
   priceHistory(p: CatalogProduct): Promise<PriceObservation[]>;
   /** Products that already have a chartable history; null = not listable in this mode (open a product page). */
   productsWithHistory(limit: number): Promise<CatalogProduct[] | null>;
+  /**
+   * Slugs of products with an active offer, for the sitemap, in pages: pass the last slug of the previous page as `after`.
+   * null = this mode is never offered to search engines (demo and test data).
+   */
+  productSlugs(after: string | null, limit: number): Promise<string[] | null>;
 }
 
 export function getRepository(): CatalogRepository {

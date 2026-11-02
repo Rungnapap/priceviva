@@ -59,8 +59,28 @@ export interface ImportResult {
   message: string;
 }
 
-const BATCH = 250;
+// Supabase cancels any single request after a few seconds ("statement timeout"), and every row is several writes.
+// 250 rows per request hit that limit on real feeds; 50 stays well inside it.
+export const BATCH = 50;
+const MIN_SPLIT_BATCH = 5;
 const MAX_STORED_ISSUES = 2000;
+
+const isStatementTimeout = (e: unknown) => e instanceof Error && /statement timeout/i.test(e.message);
+
+/**
+ * Send one batch. Each batch is a single database transaction, so a batch that timed out changed nothing
+ * and is safe to resend: split it in half and retry, down to MIN_SPLIT_BATCH rows. Other errors are not retried.
+ */
+export async function sendBatch(sink: ImportSink, p: Parameters<ImportSink["batch"]>[0]): Promise<void> {
+  try {
+    await sink.batch(p);
+  } catch (e) {
+    if (!isStatementTimeout(e) || p.rows.length <= MIN_SPLIT_BATCH) throw e;
+    const mid = Math.ceil(p.rows.length / 2);
+    await sendBatch(sink, { ...p, rows: p.rows.slice(0, mid) });
+    await sendBatch(sink, { ...p, rows: p.rows.slice(mid) });
+  }
+}
 
 export async function importFeed(
   feed: FeedRecord,
@@ -96,7 +116,7 @@ export async function importFeed(
     retailer: { external_id: feed.advertiser_id ?? `feed-${feed.external_feed_id}`, name: feed.advertiser_name ?? `Awin advertiser ${feed.advertiser_id}`, country: feed.country },
   };
 
-  let rowsTotal = 0, imported = 0, rejected = 0, warnings = 0, storedIssues = 0;
+  let rowsTotal = 0, imported = 0, rejected = 0, warnings = 0, storedIssues = 0, excluded = 0;
   let batch: NormalizedRow[] = [];
   let issues: RowIssue[] = [];
   const seen = new Set<string>();
@@ -112,7 +132,7 @@ export async function importFeed(
   };
   const flushBatch = async () => {
     if (batch.length === 0) return;
-    await sink.batch({ run_id: runId, feed_id: feed.id, source: "awin", retailer: ctx.retailer, rows: batch });
+    await sendBatch(sink, { run_id: runId, feed_id: feed.id, source: "awin", retailer: ctx.retailer, rows: batch });
     imported += batch.length;
     batch = [];
   };
@@ -144,6 +164,10 @@ export async function importFeed(
         break;
       }
       const mapped = mapAwinRow(values, row, ctx);
+      if (mapped.excluded) {
+        excluded++;
+        continue;
+      }
       for (const i of mapped.issues) {
         if (i.severity === "error") rejected++;
         else warnings++;
@@ -167,14 +191,15 @@ export async function importFeed(
 
     // Safety: never deactivate the catalogue because a broken/short file arrived.
     let status: "succeeded" | "partial" | "failed" = "succeeded";
-    let message = `Imported ${imported} of ${rowsTotal} rows (${rejected} rejected, ${warnings} warnings).`;
+    const excludedNote = excluded ? `, ${excluded} adult products excluded by policy` : "";
+    let message = `Imported ${imported} of ${rowsTotal} rows (${rejected} rejected, ${warnings} warnings${excludedNote}).`;
     if (imported === 0) {
       status = "failed";
-      message = `No valid rows imported (${rejected} rejected). Nothing was deactivated.`;
+      message = `No valid rows imported (${rejected} rejected${excludedNote}). Nothing was deactivated.`;
     } else if (truncated) {
       status = "partial";
       message += ` ${truncated} Missing offers were NOT deactivated.`;
-    } else if (previouslyActive > 50 && imported < previouslyActive * 0.5) {
+    } else if (previouslyActive > 50 && imported < (previouslyActive - excluded) * 0.5) {
       status = "partial";
       message += ` Only ${imported} rows vs ${previouslyActive} active offers before — treated as partial; nothing deactivated. Check the feed.`;
     }

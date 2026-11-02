@@ -1,11 +1,6 @@
-
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "crons": [
-    {
-      "path": "/api/cron/import-feeds",
-      "schedule": "17 4 * * *"
-    },
     {
       "path": "/api/cron/price-alerts",
       "schedule": "45 4 * * *"

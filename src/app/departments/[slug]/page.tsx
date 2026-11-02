@@ -15,7 +15,9 @@ type SP = Promise<Record<string, string | string[] | undefined>>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const d = getDepartment((await params).slug);
-  return { title: d ? d.name : "Department not found" };
+  if (!d) return { title: "Department not found" };
+  // Filters (?sub=, ?page=) show the same department, so they all point search engines at the plain address.
+  return { title: d.name, description: `${d.name}: ${d.tagline}. Compare prices and delivered totals from retailers on PriceViva.`, alternates: { canonical: `/departments/${d.slug}` } };
 }
 
 const GUIDANCE: Record<string, string> = {

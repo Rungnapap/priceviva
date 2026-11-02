@@ -6,14 +6,16 @@ import type { CatalogClientInfo } from "@/components/catalog-context";
 import { fxSnapshot } from "@/data/fx";
 import { getRepository } from "@/lib/catalog/repository";
 import { getLocale } from "@/i18n/server";
-import { indexingAllowed } from "@/lib/server/seo";
+import { indexingAllowed, siteUrl } from "@/lib/server/seo";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const display = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-display-face", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  // Base for canonical links and share previews. siteUrl() falls back to Vercel's production domain, so a missing
+  // NEXT_PUBLIC_SITE_URL can never make search engines see "localhost" addresses.
+  metadataBase: new URL(siteUrl()),
   title: {
     default: "PriceViva — Discover More. Compare Better.",
     template: "%s · PriceViva",

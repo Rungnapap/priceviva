@@ -3,6 +3,7 @@
  *
  *   npm run import:feeds                         # import all enabled feeds that are due
  *   npm run import:feeds -- --force              # ignore refresh interval
+ *   npm run import:feeds -- --budget-minutes 100 # stop cleanly after 100 minutes (default 360)
  *   npm run import:feeds -- --feed <feed-uuid>   # one feed (must exist in admin), downloads from Awin
  *   npm run import:feeds -- --feed <uuid> --file ./downloaded-feed.csv(.gz)   # import a file you downloaded
  *   npm run import:feeds -- --discover           # register feeds from your Awin feed list (disabled)
@@ -51,10 +52,14 @@ async function main() {
     return;
   }
 
-  const { results, log } = await importDueFeeds({ trigger: "cli", force: flag("--force"), budgetMs: 6 * 60 * 60_000 });
+  // --budget-minutes: stop cleanly before an outer limit (GitHub Actions kills the job at its timeout-minutes).
+  const budgetMinutes = Number(value("--budget-minutes") ?? 360);
+  if (!Number.isFinite(budgetMinutes) || budgetMinutes < 5) throw new Error("--budget-minutes must be a number of at least 5");
+  const { results, log } = await importDueFeeds({ trigger: "cli", force: flag("--force"), budgetMs: budgetMinutes * 60_000 });
   for (const l of log) console.log(l);
   console.log(JSON.stringify(results, null, 2));
-  if (results.some((r) => r.status === "failed")) process.exitCode = 1;
+  // A failed or partial run makes the command fail, so a scheduled GitHub run emails the repository owner.
+  if (results.some((r) => r.status === "failed" || r.status === "partial")) process.exitCode = 1;
 }
 
 main().catch((e) => {

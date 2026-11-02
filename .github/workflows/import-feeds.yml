@@ -1,10 +1,20 @@
-# Optional: run the feed import from GitHub Actions (useful for large feeds that exceed
-# serverless time limits). Add the secrets below in GitHub → Settings → Secrets → Actions.
+# Nightly product feed import. This is THE scheduled import: Vercel's serverless time limit is too short for
+# full feeds, so vercel.json no longer schedules imports (it still runs price alerts).
+# Setup: docs/AUTO_UPDATE.md. Secrets go in GitHub → Settings → Secrets and variables → Actions.
 name: Import product feeds
 on:
   schedule:
-    - cron: "37 3 * * *" # daily, 03:37 UTC
-  workflow_dispatch: {}
+    - cron: "37 2 * * *" # daily, 02:37 UTC (03:37/04:37 Swedish time), finished before Vercel's price-alert check at 04:45 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Import all enabled feeds now, even if they are not due"
+        type: boolean
+        default: false
+# Never run two imports at the same time.
+concurrency:
+  group: import-feeds
+  cancel-in-progress: false
 jobs:
   import:
     runs-on: ubuntu-latest
@@ -16,9 +26,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run import:feeds:ci
+      # Budget (100 min) is below timeout-minutes (120), so the import always finishes and records its result.
+      - run: npm run import:feeds:ci -- --budget-minutes 100 ${{ inputs.force && '--force' || '' }}
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           AWIN_DATAFEED_API_KEY: ${{ secrets.AWIN_DATAFEED_API_KEY }}
+          AWIN_PUBLISHER_ID: ${{ secrets.AWIN_PUBLISHER_ID }}
           IMPORT_MAX_ROWS_PER_FEED: ${{ vars.IMPORT_MAX_ROWS_PER_FEED || '50000' }}

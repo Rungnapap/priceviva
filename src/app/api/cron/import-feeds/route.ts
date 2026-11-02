@@ -7,7 +7,11 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 300; // seconds; Vercel caps this by plan
 
-/** Scheduled import. Vercel Cron calls this with `Authorization: Bearer $CRON_SECRET`. */
+/**
+ * Import endpoint, protected by `Authorization: Bearer $CRON_SECRET`. No longer on the Vercel schedule:
+ * full feeds take longer than a serverless function may run, so the nightly import runs in GitHub Actions
+ * (.github/workflows/import-feeds.yml). Kept for manual use.
+ */
 export async function GET(req: Request) {
   const secret = serverEnv.cronSecret;
   const given = req.headers.get("authorization") ?? "";

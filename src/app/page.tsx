@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getRepository } from "@/lib/catalog/repository";
 import { pickFeatured } from "@/lib/featured";
@@ -15,13 +16,17 @@ import { makeT } from "@/i18n";
 // Reads the language cookie, so it renders per request.
 export const dynamic = "force-dynamic";
 
+export const metadata: Metadata = { alternates: { canonical: "/" } };
+
 export default async function HomePage() {
   const repo = getRepository();
   const [meta, locale] = await Promise.all([repo.meta(), getLocale()]);
   const t = makeT(locale);
   const live = meta.mode === "live";
   const sample = meta.mode === "sample" && !meta.notice?.includes("built-in");
-  const featured = pickFeatured(await repo.shelf({ limit: 120 }));
+  // The shelf comes back best-first (photo, most offers), so 24 is plenty to pick 8 across departments.
+  // Each product carries all its offers, so a bigger pool made every uncached homepage request slow.
+  const featured = pickFeatured(await repo.shelf({ limit: 24 }));
   // The hero example uses a real catalogue product with offers from at least two different shops; nothing is made up.
   const shops = (p: (typeof featured)[number]) => new Set(p.offers.filter((o) => !o.informational).map((o) => o.retailer.id)).size;
   const example = featured.find((p) => shops(p) >= 2);

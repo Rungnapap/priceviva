@@ -10,7 +10,8 @@ import { ProductCard } from "@/components/product-card";
 import { SectionHeading } from "@/components/ui";
 import { getT } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Global Compare" };
+// The comparison depends on what each visitor picked: not indexed, links followed.
+export const metadata: Metadata = { title: "Global Compare", robots: { index: false, follow: true } };
 export const dynamic = "force-dynamic";
 
 function shopCount(p: CatalogProduct) {

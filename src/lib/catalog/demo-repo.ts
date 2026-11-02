@@ -92,4 +92,7 @@ export const demoRepository: CatalogRepository = {
   async productsWithHistory() {
     return [];
   },
+  async productSlugs() {
+    return null; // demo data is never offered to search engines
+  },
 };

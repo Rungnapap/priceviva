@@ -21,7 +21,8 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const c = getShopCategory((await params).slug);
-  return { title: c ? c.name : "Category not found" };
+  if (!c) return { title: "Category not found" };
+  return { title: c.name, description: `${c.name}: ${c.blurb.trim().replace(/\.?$/, ".")} Compare prices on PriceViva.`, alternates: { canonical: `/shop/${c.slug}` } };
 }
 
 /** A shopper-facing category (e.g. Electronics) that groups several catalogue departments. */

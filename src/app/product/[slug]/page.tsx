@@ -15,15 +15,27 @@ import { ProductGallery } from "@/components/product-gallery";
 import { DemoBadge, SectionHeading } from "@/components/ui";
 import { getT } from "@/i18n/server";
 import { categoryLabel } from "@/i18n";
+import { jsonLdScript, productDescription, productJsonLd, productTitle } from "@/lib/product-seo";
+import { siteUrl } from "@/lib/server/seo";
 
 type Params = Promise<{ slug: string }>;
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const p = await getRepository().product((await params).slug).catch(() => null);
+  const slug = (await params).slug;
+  const p = await getRepository().product(slug).catch(() => null);
   if (!p) return { title: "Product not found" };
-  return { title: `${p.brandName} ${p.name}${p.variant ? ` (${p.variant})` : ""}`.trim(), description: p.description.slice(0, 160) };
+  const title = productTitle(p);
+  const description = productDescription(p);
+  const path = `/product/${slug}`;
+  const image = p.images.find((i) => i.url.startsWith("https://"));
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { type: "website", siteName: "PriceViva", title, description, url: path, ...(image ? { images: [{ url: image.url, alt: image.alt }] } : {}) },
+  };
 }
 
 export default async function ProductPage({ params }: { params: Params }) {
@@ -46,9 +58,12 @@ export default async function ProductPage({ params }: { params: Params }) {
     ...Object.entries(p.specs),
     ...(p.source === "sample" ? [] : ([[p.source === "demo" ? t("product.gtinDemo") : "GTIN / EAN", p.gtin ? p.gtin.replace(/^0+(?=\d{13}$)/, "") : t("product.notSupplied")]] as [string, string][])),
   ];
+  const ld = productJsonLd(p, `${siteUrl()}/product/${slug}`);
 
   return (
     <div className="pa-container py-8">
+      {/* Product data for search engines: real offers only, no ratings or reviews. */}
+      {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(ld) }} />}
       <nav aria-label={t("common.breadcrumb")} className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted">
         <Link href="/" className="hover:text-primary">{t("nav.home")}</Link>
         <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />

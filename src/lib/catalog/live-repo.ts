@@ -116,4 +116,7 @@ export const liveRepository: CatalogRepository = {
   async productsWithHistory() {
     return null; // listing needs a dedicated index; each product page shows its own recorded history
   },
+  async productSlugs(after, limit) {
+    return rpc<string[]>("pa_catalog_sitemap", { after, limit }, { role: "anon", revalidate: 3600, timeoutMs: 20_000 });
+  },
 };

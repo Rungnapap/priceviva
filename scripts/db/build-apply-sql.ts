@@ -22,7 +22,7 @@ export const EXPECTED_TABLES = [...CATALOG_TABLES, ...USER_TABLES, ...SERVER_TAB
 /** Callable with the public (anon / publishable) key. */
 export const PUBLIC_FUNCTIONS = [
   "pa_catalog_product", "pa_catalog_by_ids", "pa_catalog_list", "pa_catalog_search", "pa_catalog_suggest", "pa_catalog_meta",
-  "pa_catalog_price_drops", "pa_catalog_local_offers", "pa_catalog_price_history",
+  "pa_catalog_price_drops", "pa_catalog_local_offers", "pa_catalog_price_history", "pa_catalog_sitemap",
 ] as const;
 /** Callable only with the secret (service_role) key. */
 export const SERVER_FUNCTIONS = [

@@ -2,7 +2,7 @@
  * Map one Awin product-feed row (Legacy "standard" columns or Enhanced Google-format columns)
  * to a NormalizedRow. Never invents values: missing data stays null / unknown.
  */
-import { guessDepartment } from "../categories";
+import { guessDepartment, isAdultProduct, type CategoryInput } from "../categories";
 import {
   cleanText,
   httpsUrl,
@@ -46,7 +46,14 @@ export function isPermittedAwinLink(url: string | null): url is string {
   }
 }
 
-export function mapAwinRow(values: Record<string, string>, rowNumber: number, ctx: FeedContext): { row?: NormalizedRow; issues: RowIssue[] } {
+/**
+ * `excluded` = skipped on purpose by catalogue policy (not an error): adult products are not listed on PriceViva.
+ */
+export function mapAwinRow(
+  values: Record<string, string>,
+  rowNumber: number,
+  ctx: FeedContext,
+): { row?: NormalizedRow; issues: RowIssue[]; excluded?: "adult" } {
   const issues: RowIssue[] = [];
   const externalId = pick(values, "merchant_product_id", "aw_product_id", "id");
   const fail = (code: string, message: string) => {
@@ -59,6 +66,16 @@ export function mapAwinRow(values: Record<string, string>, rowNumber: number, ct
   if (!externalId) return fail("missing_id", "Row has no merchant_product_id / aw_product_id / id.");
   const title = cleanText(pick(values, "product_name", "title"), 300);
   if (!title) return fail("missing_title", "Row has no product name.");
+
+  const categoryInput: CategoryInput = {
+    path: cleanText(pick(values, "merchant_product_category_path"), 300),
+    categoryName: cleanText(pick(values, "category_name"), 200),
+    productType: cleanText(pick(values, "product_type", "Fashion:category"), 200),
+    merchantCategory: cleanText(pick(values, "merchant_category"), 200),
+    googleCategory: cleanText(pick(values, "google_product_category"), 300),
+    title,
+  };
+  if (isAdultProduct(categoryInput)) return { issues: [], excluded: "adult" };
 
   // Price: Enhanced uses "price" / "sale_price" with currency suffix; Legacy uses search_price + currency.
   const saleRaw = pick(values, "sale_price");
@@ -87,7 +104,7 @@ const currency = (pick(values, "currency") ?? price.currency ?? ctx.currency ?? 
   const colour = cleanText(pick(values, "colour", "color", "Fashion:colour"), 60);
   const size = cleanText(pick(values, "Fashion:size", "size"), 40);
   const category = cleanText(pick(values, "merchant_product_category_path", "merchant_category", "category_name", "product_type", "google_product_category"), 300);
-  const guess = guessDepartment(category, title, condition);
+  const guess = guessDepartment({ ...categoryInput, condition });
 
   // Images: prefer the merchant's full-size image, then Awin's copy, then alternates. https only.
   const imageCandidates = [

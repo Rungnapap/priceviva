@@ -154,6 +154,9 @@ export const sampleRepository: CatalogRepository = {
       .filter((p): p is CatalogProduct => !!p && summarizeHistory(obs.filter((o) => o.productId === p.id)).sufficient)
       .slice(0, limit);
   },
+  async productSlugs() {
+    return null; // test data is never offered to search engines
+  },
   async brands() {
     const l = await load();
     if (!l) return demoRepository.brands();

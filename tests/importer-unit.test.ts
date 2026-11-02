@@ -5,7 +5,7 @@ import { normalizeCondition, normalizeGtin, normalizeStock, parsePriceMinor } fr
 import { checkAwinHeader, isPermittedAwinLink, mapAwinRow } from "../src/lib/importers/awin/map-row";
 import { fromUrlTemplate, parseFeedList, toUrlTemplate } from "../src/lib/importers/awin/feed-list";
 import { parseEcbXml } from "../src/lib/importers/fx-ecb";
-import { guessDepartment } from "../src/lib/importers/categories";
+import { guessDepartment, isAdultProduct } from "../src/lib/importers/categories";
 import { redact } from "../src/lib/server/env";
 
 const collect = async (chunks: string[]) => {
@@ -124,10 +124,73 @@ test("ECB XML parsing", () => {
 });
 
 test("department guesses", () => {
-  assert.deepEqual(guessDepartment("Electronics > Audio > Headphones", "X", "new"), { department: "electronics", subcategory: "headphones" });
-  assert.deepEqual(guessDepartment("Food > Coffee Beans", "Beans", "new"), { department: "groceries", subcategory: "drinks" });
-  assert.deepEqual(guessDepartment(null, "Mystery object", "new"), { department: null, subcategory: null });
-  assert.equal(guessDepartment("Phones", "Phone", "refurbished").department, "refurbished");
+  assert.deepEqual(guessDepartment({ path: "Electronics > Audio > Headphones", title: "X" }), { department: "electronics", subcategory: "headphones" });
+  assert.deepEqual(guessDepartment({ path: "Food > Coffee Beans", title: "Beans" }), { department: "groceries", subcategory: "drinks" });
+  assert.deepEqual(guessDepartment({ title: "Mystery object" }), { department: null, subcategory: null });
+  assert.equal(guessDepartment({ path: "Phones", title: "Phone", condition: "refurbished" }).department, "refurbished");
+});
+
+// Real category paths from the live Awin feeds (Nov 2026) that were misfiled by the old English keyword rules.
+test("Swedish category paths go to the right department", () => {
+  const cases: [string, string, string | null][] = [
+    // "tv" used to match "tvätt"/"tvål" because \b treats ä as a word break
+    ["Kök & hem > Hushåll > Rengör, stryk & torka > Klädtvätt > Tvättmedel > SUMMER DEALS", "groceries", "cleaning"],
+    ["Man > Kvinna > Personlig vård > Personlig vård > Parfymer & dofter > Eau de parfum > Arabiska Parfymer", "beauty", "fragrances"],
+    ["Kvinna > Personlig vård > Hårstyling > Hårborstar >", "beauty", null],
+    ["Man > Kvinna > Personlig vård > Personlig vård > Tandvård > Tandvård > Tandkräm > Tandkräm >", "health", null],
+    ["Barn > Baby- & barnprodukter > Aktivitet & lek > Leksaker > Figurer & actionhjältar > Djur & tillbehör >", "toys", null],
+    // a dog toy is a pet product, not a toy
+    ["Kök & hem > Hushåll > Husdjurstillbehör > Leksak", "pets", null],
+    ["Kök & hem > Hushåll > Husdjurstillbehör > Resa", "pets", null],
+    // "Auto & cykel" is a shared car-and-bike section
+    ["Kök & hem > Hushåll > Auto & cykel > Rengöring > Auto >", "automotive", null],
+    ["Kök & hem > Hushåll > Auto & cykel > Cykel >", "outdoors", "cycling"],
+    // watches are filed under "Klockor & Smartwatches"; doorbells are "Dörrklockor"
+    ["Man > Accessoarer > Analoga klockor > Klockor > Klockor & Smartwatches >", "jewelry-watches", "watches"],
+    ["Kök & hem > Hushåll > Hem säkerhet > Dörrklockor >", "electronics", "smart-home"],
+    // "flaskor" (bottles) contains "skor" (shoes)
+    ["Man > Kvinna > Sport & fritid > Sport & fritid > Träningsutrustning > Sportflaskor", "sports", "fitness"],
+    ["Elektronik > Mobil & surfplatta tillbehör > Skal, skärmskydd & hållare > Mobilskal > iPhone 13/13 Pro Max >", "phones", "cases"],
+    ["Elektronik > Spelkonsol > Playstation > Tillbehör", "computers-gaming", "gaming"],
+    ["Kök & hem > Kök > Knivar, skärbrädor & tillbehör > Knivar > Köksredskap >", "kitchen", "kitchen-accessories"],
+    ["Kök & hem > Hushåll > Jul > Julbelysning", "home", "lighting"],
+    ["Kök & hem > Hushåll > Verktyg & trädgårdsredskap > Verktyg & hobby > Handverktyg >", "diy-tools", null],
+    ["Kök & hem > Hushåll > Verktyg & trädgårdsredskap > Trädgård redskap >", "garden", null],
+  ];
+  for (const [path, department, subcategory] of cases) {
+    assert.deepEqual(guessDepartment({ path, title: "x" }), { department, subcategory }, path);
+  }
+});
+
+test("Awin categories and product types are used when the shop path says nothing", () => {
+  // Strumpor-online: the shop category is a campaign, Awin's own category is reliable.
+  assert.deepEqual(guessDepartment({ categoryName: "Men's Socks", merchantCategory: "Sista storlekarna", title: "Enfärgade strumpor" }), { department: "fashion", subcategory: "mens" });
+  assert.deepEqual(guessDepartment({ categoryName: "Children's Clothing", merchantCategory: "Barn", title: "Barnstrumpbyxor" }), { department: "baby-kids", subcategory: null });
+  // Children's socks filed as "Men's Socks" by the shop
+  assert.equal(guessDepartment({ categoryName: "Men's Socks", title: "Halkfria bomullsstrumpor för barn - 23-26" }).department, "baby-kids");
+  // Deluxehomeartshop: only a product type
+  assert.deepEqual(guessDepartment({ productType: "LED Blockljus", title: "LED Blockljus Ø 7,5 x 15 cm" }), { department: "home", subcategory: "lighting" });
+  assert.deepEqual(guessDepartment({ productType: "LED Kegelljus", title: "Cone Light" }), { department: "home", subcategory: "lighting" });
+});
+
+test("product names are used only when a row has no category data", () => {
+  // Brand and colour words in names must not decide the category when the shop gave one.
+  assert.equal(guessDepartment({ path: "Kvinna > Personlig vård > Hårstyling > Hårborstar", title: "Olivia Garden NanoThermic Rundborste" }).department, "beauty");
+  assert.equal(guessDepartment({ path: "Kvinna > Personlig vård > Parfym & dofter > Deodorant", title: "Elizabeth Arden Green Tea Deodorant" }).department, "beauty");
+  assert.deepEqual(guessDepartment({ path: "Kök & hem > Hushåll > Annat", title: "Garden hose" }), { department: null, subcategory: null });
+  // No category data at all: the name is all there is.
+  assert.equal(guessDepartment({ title: "Barnstrumpbyxor i bomull" }).department, "baby-kids");
+});
+
+test("adult products are recognised (they are not imported)", () => {
+  assert.equal(isAdultProduct({ path: "Kvinna > Personlig vård > Intim > Vuxen leksaker till kvinnor > Stimulans >", title: "Bullet" }), true);
+  assert.equal(isAdultProduct({ path: "Man > Personlig vård > Intim > Vuxenleksaker för män > SUMMER DEALS >", title: "x" }), true);
+  assert.equal(isAdultProduct({ path: "Man > Kvinna > Personlig vård > Personlig vård > Intim > Kräm, gel & olja > Intim > Glidmedel, gel & olja", title: "x" }), true);
+  assert.equal(isAdultProduct({ title: "Durex Fetherlite Tunna Kondomer - 3 st" }), true);
+  // Not adult: bikini trimmers, intimate-hygiene soap, toy handcuffs
+  assert.equal(isAdultProduct({ path: "Kvinna > Personlig vård > Rakning & hårborttagning > Intim > Rakhyvlar >", title: "LadyShape Bikiniformningsverktyg" }), false);
+  assert.equal(isAdultProduct({ path: "Kvinna > Personlig vård > Hygien > Bodyshampoo & shower gel > Intim tvål & cleanser >", title: "Sebamed Intim Tvål" }), false);
+  assert.equal(isAdultProduct({ path: "Barn > Baby- & barnprodukter > Aktivitet & lek > Leksaker > Leksaksvapen >", title: "Wicke Western Sheriff Handbojor" }), false);
 });
 test("Swedish and Dutch clothing categories are classified correctly", () => {
   const cases = [
@@ -148,7 +211,7 @@ test("Swedish and Dutch clothing categories are classified correctly", () => {
   ] as const;
 
   for (const [category, expectedDepartment] of cases) {
-    const result = guessDepartment(category, null, "new");
+    const result = guessDepartment({ merchantCategory: category });
     assert.equal(
       result.department,
       expectedDepartment,
@@ -158,17 +221,17 @@ test("Swedish and Dutch clothing categories are classified correctly", () => {
 });
 test("Swedish socks are classified as Fashion", () => {
   assert.deepEqual(
-    guessDepartment("Sneakersockor", "Sneaker socks", "new"),
+    guessDepartment({ merchantCategory: "Sneakersockor", title: "Sneaker socks" }),
     { department: "fashion", subcategory: null }
   );
 
   assert.deepEqual(
-    guessDepartment("Herrstrumpor", "Men's socks", "new"),
+    guessDepartment({ merchantCategory: "Herrstrumpor", title: "Men's socks" }),
     { department: "fashion", subcategory: null }
   );
 
   assert.deepEqual(
-    guessDepartment("Bambustrumpor", "Bamboo socks", "new"),
+    guessDepartment({ merchantCategory: "Bambustrumpor", title: "Bamboo socks" }),
     { department: "fashion", subcategory: null }
   );
 });

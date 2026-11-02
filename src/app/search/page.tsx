@@ -20,7 +20,8 @@ const CONDITIONS = { new: "cond.new", open_box: "cond.open_box", refurbished: "c
 
 export async function generateMetadata({ searchParams }: { searchParams: SP }): Promise<Metadata> {
   const q = one((await searchParams).q).slice(0, 80);
-  return { title: q ? `Search: ${q}` : "Search" };
+  // Search results are endless URL variations: not indexed, but the product links on them are followed.
+  return { title: q ? `Search: ${q}` : "Search", robots: { index: false, follow: true } };
 }
 
 export default async function SearchPage({ searchParams }: { searchParams: SP }) {
